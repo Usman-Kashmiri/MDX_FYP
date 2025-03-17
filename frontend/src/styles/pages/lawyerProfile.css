@@ -1,0 +1,37 @@
+.profile-pic-lawyer img {
+  width: 200px !important;
+  height: 200px !important;
+  aspect-ratio: 1/1 !important;
+  object-fit: contain !important;
+}
+
+.profile-pic-lawyer {
+  width: 200px !important;
+  height: 200px !important;
+  aspect-ratio: 1/1 !important;
+  object-fit: contain !important;
+}
+
+.case-date {
+  font-size: 12px;
+}
+
+.review-back-btn {
+  float: right;
+  transition: 0.5s;
+  color: #fff;
+  background: linear-gradient(180deg, #dd995f 0%, #d28b13 100%);
+}
+
+.review-back-btn:hover {
+  transition: 0.5s;
+  background: #fff;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+@media screen and (max-width: 576px) {
+  .case-date {
+    font-size: 10px;
+  }
+}

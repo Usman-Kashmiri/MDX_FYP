@@ -1,0 +1,232 @@
+.meeting-box-main {
+  height: calc(100vh - 176px);
+  position: relative;
+  width: 100%;
+}
+
+.meetingHeader p {
+  margin: 0;
+}
+
+.reversetimermeeting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.reversetimermeeting h5 {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.meetingHeader {
+  background-color: #da954c;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 20px;
+}
+
+.unbundle-meeting {
+  /* flex: 1 1; */
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  /* margin-bottom: 10vh; */
+  height: 90%;
+}
+
+.watermark.leftwatermark {
+  display: none;
+}
+
+div#jitsi-iframe {
+  height: 90%;
+}
+
+.brandLogo {
+  position: absolute;
+  left: 25px;
+  top: 55px;
+  background: #000;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.brandLogo img {
+  width: 100%;
+  height: 100%;
+}
+
+.meeting-unauth {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+  flex: 1;
+  flex-direction: column;
+}
+
+.main-meeting {
+  display: flex;
+  align-items: center;
+  height: 90%;
+  justify-content: start;
+  flex-direction: column;
+}
+
+.meeting-unauth img {
+  max-width: 200px;
+}
+
+.meeting-expired {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.meeting-expired img {
+  max-width: 200px;
+  width: 100%;
+}
+
+.meetingTimeBox {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  max-width: 300px;
+  width: 300px;
+}
+
+.meetingTimeBox-item p {
+  font-size: 13px;
+  background: #e7e7e4;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 3px 2px 10px #7d7d8930;
+}
+
+.meetingTimeBox-item span {
+  color: #a77534;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.start-meeting-icons:hover {
+  background: #dce9e9;
+  /* color: #d5aa6d; */
+}
+
+.start-meeting-icons {
+  padding: 3px 10px;
+  transition: 0.5s;
+  color: #d5aa6d;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Dotclick-camkit {
+  background: #ffffff;
+  width: 93%;
+  height: 100%;
+  padding: 12px;
+  margin: 0 auto;
+  padding-bottom: 0;
+  border-radius: 5px;
+  position: relative;
+  display: block;
+}
+
+.camkit-videos-list {
+  height: 90%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit,
+      minmax(min(100% / 3, max(64px, 100% / 4)), 1fr));
+  gap: 10px;
+}
+
+.camkit-videos-list .videobox {
+  width: 100%;
+  height: 100%;
+  background: black;
+  /* max-height: 150px; */
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.camkit-videos-list video {
+  width: 100%;
+  height: 100%;
+  transform: scale(-1, 1);
+}
+
+.Dotclick-camkit button {
+  background: #eaa954;
+  border: 1px solid #fff;
+  margin: 5px;
+  padding: 10px 10px;
+  color: #fff;
+  border-radius: 7px;
+  text-transform: lowercase;
+  font-weight: 600;
+  font-family: "Montserrat";
+  font-size: 20px;
+  width: 60px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Dotclick-camkit button:hover {
+  background: #ab6f21;
+}
+
+.Dotclick-camkit button#btnMeetingEnd {
+  background: #b61a1a;
+  padding: 5px 20px;
+}
+
+.Dotclick-camkit button#btnMeetingEnd:hover {
+  background: #860e0e;
+}
+
+.meetingActions {
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 10px;
+  background: white;
+}
+
+@media (max-width: 767px) {
+  .camkit-videos-list {
+    grid-template-columns: repeat(1,
+        minmax(min(100% / 2, max(64px, 100% / 1)), 1fr));
+  }
+
+  .camkit-videos-list .videobox {
+    max-height: 35vh;
+  }
+}

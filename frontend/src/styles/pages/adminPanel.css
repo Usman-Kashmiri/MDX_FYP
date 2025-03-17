@@ -1,0 +1,47 @@
+.data-table-with-actions {
+  z-index: 0;
+  box-shadow: 3px 6px 24px #c8c9cd3d !important;
+  border: none !important;
+  border-radius: 10px !important;
+  -webkit-border-radius: 10px !important;
+  -moz-border-radius: 10px !important;
+  -ms-border-radius: 10px !important;
+  -o-border-radius: 10px !important;
+}
+
+.mantine-NavLink-root {
+  transition: ease-out 0.5s;
+}
+
+.mantine-NavLink-root:hover span {
+  color: #d48c21;
+}
+
+.mantine-NavLink-root[data-active] {
+  transition: ease-out 0.5s;
+  background-color: #d48d214f;
+  color: #494949;
+}
+
+.mantine-NavLink-root[data-active]:hover {
+  background-color: #d48c217e;
+}
+
+.mantine-NavLink-root[data-active]:hover span {
+  color: #fff;
+}
+
+.manage-profile-form {
+  padding: 30px !important;
+  border-radius: 10px;
+  box-shadow: -7px -7px 15px #d7d7d7, 7px 7px 15px #e9e9e9;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.bg-gray-hover:hover {
+  background-color: #ede9e9;
+  transition: 0.5s;
+}

@@ -1,0 +1,177 @@
+/* Footer */
+.footermainestdiv {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position-y: center;
+  background-color: #222222;
+}
+
+.footermaininnerdiv {
+  padding-top: 50px;
+  margin: 0 auto;
+}
+
+.footerfirstdiv {
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 40px;
+}
+
+.topboxone {
+  border-left: 5px solid #474747;
+  padding: 20px 10px;
+}
+
+.topboxoneimgs {
+  display: block;
+}
+
+.numberptextno {
+  margin-top: 5px;
+  color: white;
+  font-size: 20px;
+}
+
+.numberptext {
+  color: white;
+  font-size: 20px;
+}
+
+.footerseconddiv {
+  width: 100%;
+  margin-top: 20px;
+  padding-top: 40px;
+}
+
+.footerlogoimgdiv {
+  width: 180px;
+  height: 180px;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.footerlogo {
+  width: 180px;
+}
+
+.footerlastcentertext {
+  color: #bfbfbf;
+  padding: 10px;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.spanheadingdash {
+  content: " ";
+  height: 3px;
+  width: 80px;
+}
+
+.footerheadinglast {
+  width: 80%;
+  display: inline;
+  font-size: 18px;
+  color: white;
+}
+
+.footerheadinglast::before {
+  display: inline-block;
+  content: " ";
+  height: 2px;
+  width: 20px;
+  margin-left: -6px;
+  margin-right: 12px;
+  top: -5px;
+  background-color: #474747;
+  position: relative;
+}
+
+.openingdays {
+  margin-top: 20px;
+  font-size: 14px;
+  color: #bfbfbf;
+}
+
+.openingtimingtext {
+  font-size: 11px;
+  width: auto;
+  line-height: 2px;
+  margin-left: 10px;
+  color: white;
+}
+
+.practicearealist {
+  margin-top: 20px;
+  color: #d5aa6d;
+  font-size: 13px;
+  list-style: none;
+}
+
+.practicearealist li {
+  line-height: 30px;
+  font-weight: 200;
+  margin-right: 40px;
+}
+
+.practicemore {
+  margin-right: 40px;
+  margin-left: 33px;
+  display: block;
+  text-align: end;
+  font-size: 13px;
+  color: #d5aa6d;
+  padding-right: 15px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.footerlastdivinputandbtn {
+  display: flex;
+  margin-top: 10px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.footerlastdivinput {
+  background-color: #1c1c1c;
+  color: #5d5d5d;
+  padding: 10px;
+  border: none;
+  outline: none;
+  width: 65%;
+  font-size: 13px;
+}
+
+.footerlastdivbtn {
+  background-color: #d5aa6d;
+  color: white;
+  padding: 10px;
+  font-size: 13px;
+  width: 35%;
+  border: none;
+  outline: none;
+}
+
+.hammerimgdiv {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.copyright {
+  background-color: #353535;
+}
+
+@media screen and (max-width: 767px) {
+  .hammerimgdiv {
+    position: relative;
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hammerimg {
+    height: 100px;
+  }
+}

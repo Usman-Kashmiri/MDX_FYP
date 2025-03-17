@@ -1,0 +1,343 @@
+.carousel-inner {
+  max-height: 80vh !important;
+}
+
+/* .slider-caption-container{
+  height: 50%;
+} */
+
+.slider-caption h1 {
+  font-size: 3.6rem;
+  font-weight: 800;
+}
+
+.carousel-item img {
+  width: 100%;
+}
+
+.what_we_do_list li {
+  list-style: disc;
+}
+
+.read-more-modal-content .mantine-Modal-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 1400px) {
+  .slider-caption h1 {
+    font-size: 2.8rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .carousel {
+    min-height: 400px;
+  }
+
+  .carousel-item img {
+    object-fit: cover;
+    aspect-ratio: 1/1;
+    max-height: 400px;
+    margin: 0 auto;
+  }
+}
+
+.slider-caption h3 {
+  font-weight: 600;
+}
+
+.carousel-indicators button {
+  width: 8px !important;
+  height: 8px !important;
+  padding: 2px !important;
+  background: transparent !important;
+  border: white solid 1px !important;
+  opacity: 1 !important;
+  border-radius: 100%;
+}
+
+.carousel-indicators .active {
+  border-color: #df9b60 !important;
+  transform: scale(1.3);
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-indicators .active::after {
+  z-index: 100;
+  position: absolute;
+  content: " ";
+  background-color: #df9b60 !important;
+  width: 72%;
+  height: 72%;
+  border-radius: 100%;
+}
+
+.slider-caption-container {
+  background: linear-gradient(180deg, transparent 0.14%, #000000c2 68.56%);
+}
+
+.slider-caption button {
+  font-family: var(--montserrat);
+  font-size: 1rem;
+  font-weight: 600;
+  border: solid 1px #d88531;
+  background-color: transparent;
+  color: #d99446;
+  transition: ease-out 0.5s;
+  -webkit-transition: ease-out 0.5s;
+  -moz-transition: ease-out 0.5s;
+  -ms-transition: ease-out 0.5s;
+  -o-transition: ease-out 0.5s;
+}
+
+.slider-caption button:hover {
+  background-color: rgba(255, 190, 117, 0.3);
+  color: white;
+}
+
+@media screen and (max-width: 540px) {
+  .carousel-indicators {
+    margin-bottom: 0.75rem !important;
+    transform: scale(0.6);
+  }
+}
+
+.milestones-container .counter-container {
+  background-color: var(--secondary-color);
+}
+
+.milestones-container .count {
+  font-family: var(--lora);
+}
+
+.milestones-container .text {
+  font-family: var(--raleway);
+}
+
+.milestones-container .how,
+.featured-lawyer .feature-heading {
+  padding-left: 6rem;
+  position: relative;
+}
+
+.milestones-container .how h2::before,
+.featured-lawyer .feature-heading h2::before {
+  content: " ";
+  width: 50px;
+  height: 2px;
+  background-color: var(--dark-bg-color);
+  position: absolute;
+  top: 10px;
+  left: 0;
+}
+
+.featured-lawyer .feature-heading h2::before {
+  top: 15px;
+  left: 20px;
+}
+
+.milestones-container .how p {
+  text-align: justify;
+}
+
+.details-container .row {
+  margin-top: 50px;
+}
+
+.details-container .title .count {
+  color: #bebebe;
+}
+
+.services-svg span {
+  margin-top: 15px;
+  width: 100%;
+  border-radius: 4px;
+  height: 4px;
+  background-color: #d9d9d9;
+}
+
+.services-svg svg * {
+  fill: #d5aa6d !important;
+}
+
+.services-container .service {
+  min-height: 250px;
+  min-width: 100%;
+}
+
+.case-type-modal {
+  padding-left: 0 !important;
+}
+
+.case-type-modal .services-container .service {
+  min-height: 225px;
+  cursor: pointer;
+}
+
+label.service:has(input[type="radio"]:checked) {
+  background-color: var(--dark-bg-color);
+  color: white;
+}
+
+label.service:has(input[type="radio"]:checked) svg {
+  filter: brightness(4);
+}
+
+.featured-lawyer {
+  background-color: #f9f9f9;
+}
+
+.featured-lawyer .featured-lawyer-svg {
+  margin-top: -48px;
+  position: absolute;
+  right: 0;
+}
+
+.lawyer-card-top {
+  background-color: #f5ead6;
+  transition: 0.5s ease-in-out;
+}
+
+.lawyer-card {
+  cursor: pointer;
+}
+
+.lawyer-card p {
+  font-size: 0.75rem;
+}
+
+.lawyer-card .card-image img {
+  background-color: whitesmoke;
+  object-fit: cover;
+  object-position: center;
+  width: 130px;
+  height: 130px;
+  display: block;
+}
+
+.lawyer-card:hover .lawyer-card-top {
+  background-color: #d5aa6d;
+}
+
+.featured-lawyer .card-text {
+  font-size: 0.66rem;
+}
+
+.lawyer-card .lawyer-card-bottom {
+  border-top: 2px solid #f8f8f9;
+}
+
+.lawyer-card .lawyer-card-bottom .card-logo {
+  width: 22px;
+}
+
+.lawyer-card .lawyer-card-bottom .chat-now-btn {
+  background: linear-gradient(180deg, #e4be7e 0%, #dda851 100%);
+  box-shadow: 0px 2.54545px 3.18182px -0.636364px rgba(0, 0, 0, 0.18);
+  border-radius: 0px 100px 100px 200px;
+  padding: 5px 5px 5px 20px;
+  font-size: 0.75rem;
+}
+
+.lawyer-card .lawyer-card-bottom .chat-now-btn img {
+  width: 20px;
+}
+
+.case-summary-form .form-floating > label {
+  left: 12px;
+  top: -8px;
+}
+
+.case-summary-form .form-floating > textarea {
+  resize: none;
+}
+
+/* Start Conversation Section */
+
+.start-conversion-section {
+  background-color: var(--dark-bg-color);
+}
+
+@media screen and (max-width: 1200px) {
+  .slider-caption h3 {
+    font-size: 1.5rem;
+  }
+
+  .slider-caption h1 {
+    font-size: 2rem;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .details-container p {
+    text-align: justify;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .slider-caption h3 {
+    font-size: 1.25rem;
+  }
+
+  .slider-caption h1 {
+    font-size: 1.8rem;
+  }
+
+  .featured-lawyer .featured-lawyer-svg {
+    margin-top: -68px;
+    width: 65px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .carousel-indicators {
+    display: none;
+  }
+
+  .slider-caption h3 {
+    font-size: 0.75rem;
+  }
+
+  .slider-caption h1 {
+    font-size: 1rem;
+  }
+
+  .slider-caption button {
+    font-size: 0.75rem;
+  }
+
+  .milestones-container .how h2::before {
+    left: 15px;
+  }
+
+  .milestones-container .how,
+  .featured-lawyer .feature-heading {
+    padding-left: 3.2rem;
+    padding-right: 1rem;
+  }
+
+  .featured-lawyer .feature-heading h2 {
+    max-width: 75%;
+  }
+
+  .milestones-container .how h2::before,
+  .featured-lawyer .feature-heading h2::before {
+    width: 25px;
+  }
+  .heading-of-appointment {
+    font-size: 18px !important;
+  }
+  .segment-of-appointment-table {
+    min-width: fit-content;
+    transform-origin: right center;
+    transform: scale(0.8) translateX(5%);
+  }
+  .mantine-UnstyledButton-root.mantine-Tabs-tab.mantine-1fnhbct {
+    padding: 0.2rem 0.4rem !important;
+  }
+}
+

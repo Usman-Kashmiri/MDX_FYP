@@ -1,0 +1,21 @@
+.tabs i {
+    padding: 1rem;
+    border-radius: .4rem;
+    color: #9DA5B0;
+}
+
+.tabs i.active-tab {
+    background-color: #ECD8BB;
+    color: #D48E24;
+    position: relative;
+}
+
+.tabs i.active-tab::after {
+    content: ' ';
+    top: 0;
+    margin-left: 35px;
+    position: absolute;
+    background-color: #D48E24;
+    width: 4px;
+    height: 100%;
+}

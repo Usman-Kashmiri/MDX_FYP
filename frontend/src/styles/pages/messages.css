@@ -1,0 +1,13 @@
+.box-of-message-details {
+  border: 1px grey solid;
+  border-radius: 20px;
+  padding: 1rem 0.5rem;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+/* 
+.text-of-details{
+    font-size:  25px;
+} */

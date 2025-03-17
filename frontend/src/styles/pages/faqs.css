@@ -1,0 +1,51 @@
+.faqs-top-section {
+  background-image: url(../../assets/images/faq-bg.jpg);
+}
+.mantine-o6hlea {
+  cursor: pointer !important;
+}
+
+.faqs-content-area {
+  margin: 90px 0 !important;
+}
+
+.faqs-accordion {
+  border: 1px solid #ddd;
+  margin-bottom: 30px;
+  padding: 3px 20px;
+  border-radius: 0px;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  -ms-border-radius: 0px;
+  -o-border-radius: 0px;
+}
+
+.faqs-accordion button span {
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: #282828;
+}
+
+.faqs-accordion button:hover {
+  background-color: unset;
+}
+
+.faqs-accordion p,
+.faqs-accordion ol li {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+  color: #9b9b9b;
+  line-height: 24px;
+}
+
+.faqs-accordion ol li {
+  list-style: decimal;
+}
+
+.faqs-question-answer {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}

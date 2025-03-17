@@ -1,0 +1,153 @@
+.account-setting .mantine-Tabs-tab[data-active] {
+  background-color: #db9753;
+  color: white;
+  font-weight: 500;
+}
+
+.account-setting .mantine-Tabs-tab[data-active]:hover {
+  background-color: #c58749;
+}
+
+.account-setting .mantine-Tabs-tab {
+  padding: 12px 32px 12px 16px;
+  width: fit-content !important;
+  font-size: 15px;
+  color: #687281;
+  font-family: var(--poppins);
+  font-weight: 300;
+}
+
+.account-setting .delete-account-link {
+  font-family: var(--poppins);
+  color: #ff0000a8;
+  font-weight: 300;
+  text-decoration: none;
+}
+
+.account-setting .delete-account-link:hover {
+  text-decoration: underline;
+}
+
+.account-setting .white-rounded-container {
+  padding: 30px 25px;
+  border: 1px solid #e8e6e6;
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
+
+.account-setting-form {
+  row-gap: 25px;
+}
+
+.account-setting .white-rounded-container h2 {
+  font-size: 2rem;
+  font-family: var(--poppins);
+  font-weight: 500;
+  line-height: 0.9;
+}
+
+.account-setting .white-rounded-container h3 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  font-family: var(--poppins);
+}
+
+.account-setting .white-rounded-container .degree-heading {
+  line-height: 0.6;
+}
+
+.account-setting .personal-info span,
+.account-setting .address-info span {
+  font-size: 17px;
+}
+
+.account-setting .personal-info span,
+.account-setting .address-info span,
+.account-setting label,
+.account-setting .span-label {
+  font-weight: 300;
+  font-family: var(--poppins);
+}
+
+.account-setting label,
+.account-setting .span-label {
+  color: #687281;
+  font-weight: 300;
+  font-size: 16px;
+}
+
+.account-setting .mantine-Tabs-panel {
+  padding-bottom: 60px;
+}
+
+.mantine-InputWrapper-root.mantine-DatePickerInput-root {
+  max-width: unset !important;
+}
+
+.availibilty-days-check:checked + label {
+  background-color: #dfa86b;
+  color: white !important;
+}
+
+.timeInput {
+  border: 1px solid #d8d5d5;
+}
+.is-showable-in-account-setting-aside {
+  display: none;
+}
+
+.asideAvatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: contain;
+  background: #292b2d;
+}
+.availibility-btn {
+  width: 180px !important;
+}
+
+@media screen and (max-width: 992px) {
+  .is-showable-in-account-setting-aside {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .account-setting .mantine-Tabs-tabsList {
+    flex-wrap: nowrap;
+    align-items: center;
+    max-width: 80vw;
+    overflow: auto;
+  }
+
+  .account-setting .mantine-Tabs-panel {
+    padding-left: 0;
+  }
+  .account-setting .mantine-Tabs-panel {
+    padding-bottom: 160px;
+  }
+  .day-select-box {
+    width: 70px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .account-setting .mantine-Tabs-panel {
+    padding-bottom: 0px;
+  }
+  .day-select-box {
+    font-size: 12px;
+    /* width: 50px; */
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .aside-container {
+    width: 100vw;
+  }
+}

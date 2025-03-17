@@ -1,0 +1,31 @@
+.seperator-of-milestone {
+  min-height: 1px;
+  background-color: grey;
+  margin-bottom: 1rem;
+}
+.selected-milstone {
+  color: orange;
+}
+.box-of-milestone {
+  margin-top: -25px;
+}
+
+.box-of-stage-stepper {
+  width: 100%;
+}
+.span-head-label-for-milestone {
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 457px) {
+  .contract-input {
+    width: 150px;
+  }
+  /* .--sadas-- {
+    width: 100% !important ;
+  } */
+  .---centeresadsa---- {
+    margin: auto;
+    width: 90% !important;
+  }
+}

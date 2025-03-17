@@ -1,0 +1,102 @@
+.contract-detail-container {
+  border: 1px solid gray;
+  border-radius: 20px;
+  min-height: 80vh;
+  margin: 0 1rem;
+  margin-bottom: 5rem;
+}
+
+.start-and-end-date-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 95%;
+  margin: auto;
+  margin-top: 1rem;
+}
+
+.start-and-end-date-header > .date-span {
+  padding: 0.6rem 1.2rem;
+  /* border: 2px solid #eaa954; */
+  border-radius: 15px;
+  background-color: #d7d7d7aa;
+  /* color: white; */
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+
+.contract-detail-body {
+  width: 95%;
+  margin: auto;
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.client-detail-in-contract-detail {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 15px;
+  border: none;
+  border-radius: 14px;
+  background-color: #e1e1e1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  /* box-shadow: 0px 0px 16px #d8ebef; */
+}
+
+.left-side-of-client-div {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+}
+
+.left-side-of-client-div > .image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+}
+
+/* .client-name-in-contract {
+  font-size: 30px;
+  font-weight: bold;
+}
+ */
+
+.cardelement {
+  background: #e1e1e1;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.paymentForm {
+  max-width: 100%;
+  width: 100%;
+  margin: 20px 0;
+  background: #f9f3f3;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 576px) {
+  .date-span {
+    padding: 0.4rem 0.4rem !important;
+    border-radius: 6px !important;
+    margin: 0px !important;
+  }
+  /* .start-and-end-date-header {
+  padding: ;
+} */
+  .span-value-of-contract-detail {
+    font-size: 13px;
+  }
+}

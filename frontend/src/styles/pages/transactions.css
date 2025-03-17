@@ -1,0 +1,174 @@
+.rejected-btn,
+.approve-btn {
+  font-family: var(--poppins);
+  background-color: rgb(255, 101, 101);
+  color: white;
+  font-weight: 500;
+  padding: 10px 30px;
+  transition: all 0.2s;
+  border-radius: 2px;
+  box-shadow: 0px 4.68293px 5.85366px -1.17073px rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
+  border: 1px solid transparent;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  -o-transition: all 0.2s;
+}
+.rejected-btn {
+  background-color: rgb(255, 101, 101);
+}
+.approve-btn {
+  background-color: rgb(4, 166, 4);
+}
+
+.rejected-btn:hover,
+.approve-btn:hover {
+  background-color: transparent;
+}
+
+.rejected-btn:hover {
+  border: 1px solid rgb(255, 101, 101);
+  color: rgb(255, 101, 101);
+}
+
+.approve-btn:hover {
+  border: 1px solid rgb(4, 166, 4);
+  color: rgb(4, 166, 4);
+}
+
+.date-picker-of-transaction {
+  width: 30%;
+}
+
+.span-label-of-web-setting {
+  font-weight: 600;
+}
+
+.edit-width-of-transactions {
+  width: fit-content;
+}
+
+.box-of-total-amount-of-transaction {
+  background-color: #ffddbd;
+  border-radius: 7px;
+  padding: 2rem 1rem;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -ms-border-radius: 7px;
+  -o-border-radius: 7px;
+}
+
+.amount-label-in-transaction {
+  color: #817c7c;
+  font-size: 20px;
+}
+
+.grey-btn-of-cancels {
+  background-color: #d9d9d9;
+  color: black;
+  font-family: var(--poppins);
+  font-weight: 500;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.cancel-btn-of-site-setting {
+  font-family: var(--poppins);
+  font-weight: 500;
+  padding: 10px 30px;
+  transition: all 0.2s;
+  border-radius: 2px;
+  box-shadow: 0px 4.68293px 5.85366px -1.17073px rgba(0, 0, 0, 0.24);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}
+.small {
+  font-weight: 400 !important;
+  padding: 8px 10px !important;
+  border-radius: 10px !important;
+}
+.textfield-of-transactions {
+  border-radius: 10px;
+  background: #d9d9d9;
+  font-size: 25px !important;
+  font-weight: 500;
+}
+.label-of-amount-in-transaction {
+  color: #000;
+  /* font-family: Cairo; */
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+  margin-bottom: 0 !important;
+}
+
+.grey-btn-of-cancels:hover {
+  background-color: #909090;
+}
+.orange-btn-of-submit {
+  color: white;
+  font-family: var(--poppins);
+  border: none;
+  background: #e99246;
+  font-weight: 500;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 12px;
+  transition: all 0.2s;
+}
+
+.orange-btn-of-submit:hover {
+  background: #b47035;
+}
+
+.amount-text-of-transaction {
+  font-size: 35px;
+  font-weight: bold;
+}
+
+@media screen and (max-width: 992px) {
+  .date-picker-of-transaction {
+    width: 38%;
+  }
+}
+@media screen and (max-width: 756px) {
+  .date-picker-of-transaction {
+    width: 45%;
+  }
+  .box-of-total-amount-of-transaction {
+    padding: 1.4rem 1rem;
+  }
+}
+@media screen and (max-width: 456px) {
+  .date-picker-of-transaction {
+    width: 60%;
+  }
+  .text-of-transaction {
+    font-size: large;
+  }
+  .box-of-total-amount-of-transaction {
+    padding: 0.6rem 0.4rem;
+  }
+  .amount-text-of-transaction {
+    transform: scale(0.8) translateX(-7%);
+  }
+  .box-of-total-amount-of-transaction > button {
+    transform: scale(0.8) translateX(7%) !important;
+  }
+}
+
+.textfield-of-transactions > .mantine-InputWrapper-error {
+  margin-top: -5px !important;
+  background: white !important;
+}

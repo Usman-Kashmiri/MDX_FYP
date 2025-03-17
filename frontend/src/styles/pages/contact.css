@@ -1,0 +1,51 @@
+.button-content {
+  display: flex;
+  align-items: center;
+}
+
+.btn-brown-square {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: auto; /* Set height to auto so it matches the content height */
+}
+
+.contact-top-section {
+  background-image: url(http://7oroof.com/demos/trust/images/page-titles/contact-us-title-bg.png);
+}
+
+.contact-us p {
+  line-height: 24px;
+}
+
+.mantine-TextInput-input {
+  background: transparent !important;
+}
+
+.contact-title-area {
+  padding-left: 15px;
+  padding-top: 6px;
+  padding-bottom: 20px;
+  color: #9b9b9b;
+}
+
+.address-details {
+  font-family: "Open Sans", sans-serif;
+  font-size: 13px;
+}
+
+.address-details span:first-child {
+  color: #d5aa6d;
+}
+
+.address-details span {
+  display: block;
+  margin: 10px 0px;
+  color: #9b9b9b;
+}
+
+.address-details span i {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #474747;
+}

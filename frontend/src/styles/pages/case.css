@@ -1,0 +1,58 @@
+.status-div-of-lawyer-cases-in-case {
+  min-width: fit-content;
+}
+.case-description-btn {
+  width: fit-content;
+}
+
+@media screen and (max-width: 756px) {
+  .appointment-number,
+  .client-name {
+    font-size: 17px !important;
+  }
+  .case-description-btn.in-appoint,
+  .case-description-btn {
+    font-size: 15px;
+  }
+  .case-date {
+    min-width: fit-content !important;
+  }
+  .img-of-user-in-case {
+    width: 60px !important;
+    height: 60px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .appointment-number,
+  .client-name {
+    font-size: 15px !important;
+  }
+  .case-description-btn.in-appoint,
+  .case-description-btn {
+    font-size: 12px;
+  }
+  .grey-label-in-appointment {
+    font-size: 13px;
+  }
+  .class-of-select-status-in-appoint {
+    scale: 0.7;
+  }
+  .img-of-user-in-case {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .parent-div-of-case {
+    width: 100% !important;
+    display: flex;
+    flex-direction: column !important;
+  }
+  .div-of-case {
+    width: 100% !important;
+  }
+  .case-date {
+    font-size: 12px;
+  }
+}

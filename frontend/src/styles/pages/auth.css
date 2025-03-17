@@ -1,0 +1,114 @@
+.maindiv {
+  min-height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 65%; */
+  background-size: cover;
+  background-image: url("../../assets/images/signinbackimg.png");
+  background-attachment: fixed;
+  background-position: center center;
+}
+/* 
+.logoimg {
+  width: 400px;
+} */
+
+.token-field {
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 4px;
+  border-color: #d8d8d8;
+}
+
+.token-field .mantine-Input-input {
+  background-color: #fafafa !important;
+}
+
+.token-field:focus,
+.mantine-Input-input:focus-within {
+  border-color: #228be6 !important;
+}
+
+.token-field.inputField-error {
+  border-color: #fa5252 !important;
+}
+
+.signincolumns {
+  padding: 0;
+}
+
+.select-role-modal {
+  margin: 10px;
+  accent-color: #c07e45;
+  width: 15px;
+  height: 15px;
+  /* border: 1px solid white */
+}
+
+.remember-me label {
+  cursor: pointer;
+}
+
+.signup-checkbox label a {
+  cursor: pointer;
+  color: #dd995f !important;
+  text-decoration: none !important;
+}
+
+.signup-checkbox label a:hover {
+  text-decoration: underline !important;
+}
+
+.signup-checkbox .mantine-Checkbox-input {
+  cursor: pointer;
+}
+
+.signup-checkbox .mantine-Checkbox-input:checked {
+  background-color: #dd995f;
+  border-color: #dd995f;
+}
+
+.signup-modal-content {
+  font-family: var(--poppins);
+}
+
+.signup-modal-content h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.signup-modal-content h2 {
+  font-size: 1.75rem;
+}
+
+.signup-modal-content h3 {
+  font-size: 1.32rem;
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 4px;
+}
+
+.signup-modal-content ul li,
+.signup-modal-content li ul li {
+  list-style: disc;
+}
+
+.signup-modal-content ol li {
+  list-style: decimal;
+}
+
+.resend-text {
+  color: red;
+  cursor: pointer;
+}
+
+.resend-text:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 767px) {
+  .backimgcoldiv {
+    display: none;
+  }
+}
