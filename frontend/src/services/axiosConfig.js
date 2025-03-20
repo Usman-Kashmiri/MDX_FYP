@@ -1,10 +1,7 @@
 import axios from "axios";
 import { errorMessage } from "../globalFunctions";
 
-// export const baseURL = "http://127.0.0.1:8000/api"; // local
-// export const baseURL = "https://lawyer-be.xiomstudio.com/api"; // hostinger
-// export const baseURL = "https://drhalo.ca/api"; // client's hosting (DreamHost)
-export const baseURL = "https://lawyer.dotclick.co/api"; // dotclick hosting (Dotclick.co/cpanel)
+export const baseURL = "http://127.0.0.1:8000/api"; // local
 
 const custAxios = axios.create({
   baseURL: baseURL,

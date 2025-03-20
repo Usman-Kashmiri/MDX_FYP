@@ -1,0 +1,36 @@
+{
+    "name": "nbundl-be",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "main": "server.js",
+    "author": "Dot-Click",
+    "keywords": [],
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon server.js",
+        "start": "node server.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Dot-Click/nbundl-be.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Dot-Click/nbundl-be/issues"
+    },
+    "homepage": "https://github.com/Dot-Click/nbundl-be#readme",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.18.2",
+        "morgan": "^1.10.0",
+        "socket.io": "^4.7.4"
+    },
+    "devDependencies": {
+        "@popperjs/core": "^2.11.6",
+        "axios": "^1.6.7",
+        "bootstrap": "^5.2.3",
+        "laravel-vite-plugin": "^0.7.5",
+        "sass": "^1.56.1",
+        "vite": "^4.0.0"
+    }
+}

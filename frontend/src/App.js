@@ -4,14 +4,15 @@ import Router from "./router/Router";
 import { MeetProvider } from "./components/layout/MeetProvider";
 import * as PusherPushNotifications from "@pusher/push-notifications-web";
 import { useEffect } from "react";
+
 function App() {
   useEffect(() => {
     const beamsClient = new PusherPushNotifications.Client({
-      instanceId: '04101675-dac7-4044-96ab-d81bc8bbd55b',
+      instanceId: "04101675-dac7-4044-96ab-d81bc8bbd55b",
     });
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'hidden') {
+      if (document.visibilityState === "hidden") {
         sendNotification();
       }
     };
@@ -19,18 +20,19 @@ function App() {
     const sendNotification = async () => {
       try {
         await beamsClient.start();
-        await beamsClient.addDeviceInterest('debug-hello');
+        await beamsClient.addDeviceInterest("debug-hello");
       } catch (error) {
-        console.error('Error:', error);
+        console.error("Error:", error);
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
+
   return (
     <MeetProvider>
       <BrowserRouter>
