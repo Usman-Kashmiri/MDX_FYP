@@ -32,6 +32,7 @@ class AllController extends Controller
             return response()->json(["res" => "success", "message" => "All Area Of Expertise List Not Found!"]);
         }
     }
+
     public function jurisdiction(Request $request)
     {
         if (isset($request->country_id)) {
@@ -48,6 +49,7 @@ class AllController extends Controller
             return response()->json(["res" => "warning", "message" => "Please specify a valid country to fetch jurisdictions!"]);
         }
     }
+
     public function countries()
     {
         try {
@@ -64,6 +66,7 @@ class AllController extends Controller
             return response()->json(["res" => "error", "message" => "Something wrong in the database", "error" => $th->getMessage(), "data" => []]);
         }
     }
+
     public function state(Request $request)
     {
         try {
@@ -84,6 +87,7 @@ class AllController extends Controller
             return response()->json(["res" => "error", "message" => "Something wrong in the database", "error" => $th->getMessage(), "data" => []]);
         }
     }
+
     public function lawyer($id)
     {
         $lawyer = User::where(["id" => $id, "role_id" => 3, 'status' => "1"])->first();
@@ -129,6 +133,7 @@ class AllController extends Controller
             return response()->json(["res" => "error", "message" => "Lawyer Data Not Found!"]);
         }
     }
+
     public function appointment(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -340,7 +345,6 @@ class AllController extends Controller
         }
     }
 
-
     public function website_details()
     {
         $webDetails = WebsiteSetting::find(1);
@@ -358,43 +362,6 @@ class AllController extends Controller
                 "res" => "error",
                 "message" => "Data not found",
             ]);
-        }
-    }
-
-
-
-
-    // For development purpose only
-    public function add_balance(Request $request, $id)
-    {
-
-        $user = User::find($id);
-
-        $user->balance = $request->balance;
-        $user->iban = $request->iban;
-        $isUpdated = $user->save();
-
-
-        if ($isUpdated) {
-            return response()->json(['status' => 'success', 'message' => 'Kam 25 hai'], 200);
-        } else {
-            return response()->json(['status' => 'lul', 'message' => 'war gae!!!'], 500);
-        }
-    }
-
-    public function create_transaction(Request $request, $id)
-    {
-        $isCreated = TransactionsHistory::create([
-            "user_id" => $id,
-            "amount" => $request->amount,
-            "reason" => $request->reason,
-            "type" => $request->type,
-        ]);
-
-        if ($isCreated) {
-            return response()->json(['status' => 'success', 'message' => 'Kam 25 hai'], 200);
-        } else {
-            return response()->json(['status' => 'lul', 'message' => 'war gae!!!'], 500);
         }
     }
 

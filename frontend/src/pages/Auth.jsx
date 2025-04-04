@@ -1,5 +1,4 @@
 import { Col, Row } from "react-bootstrap";
-import whitelogo from "../assets/images/white-logo.png";
 import logo from "../assets/images/logo.png";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect } from "react";

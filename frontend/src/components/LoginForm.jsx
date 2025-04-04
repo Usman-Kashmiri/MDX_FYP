@@ -165,18 +165,6 @@ const LoginForm = () => {
             to register.
           </p>
         </div>
-        <div className="logosdiv gap-1">
-          <img
-            src={googleimg}
-            alt="google icon"
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
-          />
-          <img
-            src={facebookimg}
-            alt="facebook icon"
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
-          />
-        </div>
       </Form>
     </Fade>
   );

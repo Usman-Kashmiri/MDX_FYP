@@ -23,8 +23,8 @@ class WebsiteSettingsResource extends JsonResource
                 "site_name" => $this->site_name,
                 "site_email" => $this->site_email,
                 "site_contact" => $this->site_contact,
-                "site_logo" => $this->site_logo ? $this->getImagePath($this->site_logo) : null,
-                "site_favicon" => $this->site_favicon ? $this->getImagePath($this->site_favicon) : null,
+                "site_logo" => $this->site_logo ? $this->site_logo : null,
+                "site_favicon" => $this->site_favicon ? $this->site_favicon : null,
                 "admin_commission_percent" => $this->admin_commission_percent,
                 "gpt_key" => $this->gpt_key,
                 "stripe_public_key" => $this->stripe_pk,
@@ -37,8 +37,8 @@ class WebsiteSettingsResource extends JsonResource
                 "site_name" => $this->site_name,
                 "site_email" => $this->site_email,
                 "site_contact" => $this->site_contact,
-                "site_logo" => $this->site_logo ? $this->getImagePath($this->site_logo) : null,
-                "site_favicon" => $this->site_favicon ? $this->getImagePath($this->site_favicon) : null,
+                "site_logo" => $this->site_logo ? $this->site_logo : null,
+                "site_favicon" => $this->site_favicon ? $this->site_favicon : null,
             ];
         }
     }

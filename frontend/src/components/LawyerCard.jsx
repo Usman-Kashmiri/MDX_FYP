@@ -1,26 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import logo from "../assets/images/logo.png";
-import chatNowIcon from "../assets/images/chat-now-icon.png";
 import { Card, Col } from "react-bootstrap";
 import Ratings from "./Ratings";
-import { useAuth } from "../hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useDisclosure } from "@mantine/hooks";
+import { useSelector } from "react-redux";
 import DescribeCaseModal from "./layout/DescribeCaseModal";
-import { isAbleToChat } from "../redux/actions/clientActions";
 import { Avatar, Button, Flex } from "@mantine/core";
-import { errorMessage } from "../globalFunctions";
 
 const LawyerCard = ({ lawyerDetails }) => {
-  const isAuthorized = useAuth();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [isChatInitiated, setIsChatInitiated] = useState(false);
-  const [isChatLoading, setIsChatLoading] = useState(false);
-  const [isCaseModalOpened, { open: openCaseModal, close: closeCaseModal }] =
-    useDisclosure(false);
-
   const { cases } = useSelector((store) => store.case);
   const { user } = useSelector((store) => store?.auth);
 
@@ -30,24 +18,7 @@ const LawyerCard = ({ lawyerDetails }) => {
         item?.lawyer?.id === lawyerDetails?.id &&
         item?.client?.id === user?.userData?.id
     );
-
-    caseObject !== undefined && setIsChatInitiated(true);
   }, []);
-
-  const handleChat = async () => {
-    setIsChatLoading(true);
-    !isAuthorized && navigate("/auth/login", { state: "/legal-professionals" });
-    !isAuthorized && errorMessage("Please login first to initiate a case");
-    const res = await dispatch(isAbleToChat(lawyerDetails?.id));
-    isAuthorized && res.res && setIsChatInitiated(true);
-    isAuthorized && !res.res && openCaseModal();
-    isAuthorized &&
-      res.res &&
-      navigate(`/chat/${lawyerDetails?.id}`, {
-        state: { lawyer_id: lawyerDetails.id, userData: user?.userData },
-      });
-    setIsChatLoading(false);
-  };
 
   return (
     <Col className="lawyer-card" xl={3} sm={5} xs={10}>
@@ -84,27 +55,16 @@ const LawyerCard = ({ lawyerDetails }) => {
               <img src={logo} alt="logo" className="w-100" />
             </span>
             <Button
-              onClick={handleChat}
-              isChatInitiated
-              loading={isChatLoading}
-              disabled={isChatLoading}
+              onClick={() => navigate(`/lawyer/${lawyerDetails?.id}`)}
               className="chat-now-btn text-white gap-2 text-uppercase"
             >
               <Flex align={"center"} justify={"center"} gap={6}>
-                {isChatInitiated ? "Chat" : "Initiate Case"}
-                <img src={chatNowIcon} alt="chat-now" />
+                View Profile
               </Flex>
             </Button>
           </div>
         </Card.Body>
       </Card>
-
-      <DescribeCaseModal
-        opened={isCaseModalOpened}
-        close={closeCaseModal}
-        isChatInitiated={isChatInitiated}
-        lawyerId={lawyerDetails.id}
-      />
     </Col>
   );
 };

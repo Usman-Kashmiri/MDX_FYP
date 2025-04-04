@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Col, Container, ProgressBar, Row, Spinner } from "react-bootstrap";
-import Footer from "../../components/layout/Footer";
-import Header from "../../components/layout/Header";
+import { Col, Container, Row, Spinner } from "react-bootstrap";
 import Ratings from "../../components/Ratings";
 import { useNavigate, useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,45 +41,11 @@ const LawyerProfile = () => {
   const { user } = useSelector((state) => state.auth);
   const { LawyerById } = useSelector((state) => state.web);
 
-  const handleChat = async () => {
-    setIsChatLoading(true);
-    !isAuthorized && navigate("/auth/login", { state: "/legal-professionals" });
-    !isAuthorized && errorMessage("Please login first to initiate a case");
-    const res = await dispatch(isAbleToChat(LawyerById?.id));
-    isAuthorized && res.res && setIsChatInitiated(true);
-    isAuthorized && !res.res && openCaseModal();
-    isAuthorized &&
-      res.res &&
-      navigate(`/chat/${LawyerById?.id}`, {
-        state: { lawyer_id: LawyerById?.id, userData: user?.userData },
-      });
-    setIsChatLoading(false);
-  };
-
   return (
     <>
       <Fade>
-        {/* <div
-          style={{
-            position: "fixed",
-            zIndex: 999,
-            top: "0",
-            left: "0",
-            right: "0",
-            marginBottom: "2rem",
-            minHeight: "100vh",
-            maxHeight: "100vh",
-          }}
-        >
-          <Header />
-        </div> */}
-
         {LawyerById?.first_name ? (
-          <div
-          // style={{
-          //   marginTop: "5rem",
-          // }}
-          >
+          <div>
             <section className="user-profile mt-md-5 mt-3">
               <Container className="py-5 px-4">
                 <Row>
@@ -104,8 +68,6 @@ const LawyerProfile = () => {
                                 "user profile pic"
                               }
                               radius={1000}
-                              // w={200}
-                              // h={200}
                               size={"md"}
                               className="user-profile-pic profile-pic-lawyer"
                             />
@@ -113,81 +75,92 @@ const LawyerProfile = () => {
                           <Col
                             sm={8}
                             xs={12}
-                            className="d-flex flex-column align-items-start justify-content-center ps-md-5 ps-3 py-md-0 py-3"
+                            className="align-items-center pt-4"
                           >
-                            {LawyerById ? (
-                              <h2 className="username font-montserrat text-uppercase">
-                                {`${LawyerById?.first_name} ${LawyerById?.last_name}`}
-                              </h2>
-                            ) : (
-                              <h2 className="username font-montserrat text-uppercase">
-                                {`${user?.userData?.first_name} ${user?.userData?.last_name}`}
-                              </h2>
-                            )}
-                            {location.pathname !== "/lawyer-profile" && (
-                              <div className="contact-resume-btn d-flex gap-3 mt-md-5 mt-4">
-                                <Button
-                                  loading={isChatLoading}
-                                  className="primary-btn"
-                                  onClick={handleChat}
-                                  h={45}
-                                >
-                                  <Flex
-                                    align={"center"}
-                                    justify={"center"}
-                                    gap={6}
-                                  >
-                                    Chat
-                                    <img
-                                      src={chatNowIcon}
-                                      alt="chat-now"
-                                      width={20}
-                                    />
-                                  </Flex>
-                                </Button>
-                              </div>
-                            )}
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md={5} className="p-lg-0 p-md-3">
-                            <div className="mt-4 client-ratings-and-reviews">
-                              <div className="ratings d-flex flex-column gap-2">
-                                <div className="d-flex justify-content-between align-items-center">
-                                  {LawyerById ? (
-                                    <Ratings
-                                      ratings={
-                                        isNaN(LawyerById?.ratings)
-                                          ? 0
-                                          : Math.round(LawyerById?.ratings)
-                                      }
-                                    />
-                                  ) : (
-                                    <Ratings
-                                      ratings={Math.round(
-                                        user?.userData?.average_rating
-                                      )}
-                                    />
-                                  )}
-                                  <span className="font-poppins">
-                                    {LawyerById
-                                      ? LawyerById?.reviews?.length
-                                      : 20}{" "}
-                                    reviews
-                                  </span>
-                                </div>
-                                {/* <Row className="align-items-center">
-                                  <Col className="w-100 pe-0">
-                                    <ProgressBar now={85} />
-                                  </Col>
-                                  <Col xs="auto" className="px-3">
+                            <Col
+                              xs={12}
+                              className="d-flex flex-column align-items-start justify-content-center py-3"
+                            >
+                              {LawyerById ? (
+                                <h2 className="username font-montserrat text-uppercase">
+                                  {`${LawyerById?.first_name} ${LawyerById?.last_name}`}
+                                </h2>
+                              ) : (
+                                <h2 className="username font-montserrat text-uppercase">
+                                  {`${user?.userData?.first_name} ${user?.userData?.last_name}`}
+                                </h2>
+                              )}
+                            </Col>
+                            <Col xs={12} className="w-100 pe-0">
+                              <a href={`mailto:${LawyerById?.email}`}>
+                                <span className="fw-bold">Email: </span>
+                                {LawyerById?.email}
+                              </a>
+                            </Col>
+                            <Col xs="auto">
+                              <a href={`tel:${LawyerById?.phone_number}`}>
+                                <span className="fw-bold">Phone: </span>
+                                {LawyerById?.phone_number}
+                              </a>
+                            </Col>
+
+                            <Col xs={12} className="p-lg-0 p-md-3">
+                              <div className="mt-4 client-ratings-and-reviews">
+                                <div className="ratings d-flex flex-column gap-2">
+                                  <div className="d-flex justify-content-between align-items-center">
+                                    {LawyerById ? (
+                                      <Ratings
+                                        ratings={
+                                          isNaN(LawyerById?.ratings)
+                                            ? 0
+                                            : Math.round(LawyerById?.ratings)
+                                        }
+                                      />
+                                    ) : (
+                                      <Ratings
+                                        ratings={Math.round(
+                                          user?.userData?.average_rating
+                                        )}
+                                      />
+                                    )}
                                     <span className="font-poppins">
-                                      85% trust
+                                      {LawyerById
+                                        ? LawyerById?.reviews?.length
+                                        : 20}{" "}
+                                      reviews
                                     </span>
-                                  </Col>
-                                </Row> */}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
+                            </Col>
+                          </Col>
+
+                          <Col xs={12} className="py-4">
+                            <h4 className="fw-bold">Lawyers Details:</h4>
+                            <ul className="list-unstyled ps-3">
+                              <li>
+                                <span className="fw-bold">Country: </span>
+                                {LawyerById?.country}
+                              </li>
+                              <li>
+                                <span className="fw-bold">Address: </span>
+                                {LawyerById?.address}
+                              </li>
+                              {LawyerById?.area_of_expertise?.length > 0 && (
+                                <li>
+                                  <span className="fw-bold">
+                                    Practice Areas:{" "}
+                                  </span>
+                                  <ul>
+                                    {LawyerById?.area_of_expertise?.map(
+                                      (experty, i) => {
+                                        return <li>{experty?.name}</li>;
+                                      }
+                                    )}
+                                  </ul>
+                                </li>
+                              )}
+                            </ul>
                           </Col>
                         </Row>
                       </Col>

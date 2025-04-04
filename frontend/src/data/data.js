@@ -980,12 +980,6 @@ export const adminAsideNavigation = [
     allow: ["admin", "superadmin"],
   },
   {
-    icon: <BiMoneyWithdraw />,
-    label: "Withdraw Requests",
-    path: "/admin/withdraw-requests",
-    allow: ["superadmin"],
-  },
-  {
     icon: <AiFillQuestionCircle />,
     label: "Manage FAQs",
     path: "/admin/faqs",

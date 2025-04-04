@@ -173,17 +173,16 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         $controller = new Controller();
 
         if ($this->attributes['image'] && $this->attributes['provider'] === "nbundl") {
-            return $controller->getPublicS3File($this->attributes['image']);
+            return $this->attributes['image'];
         } elseif (!$this->attributes['image']) {
             return asset('uploads/users/default.png');
         }
 
         $pos = strpos($this->attributes['image'], "users");
         if ($pos !== false) {
-            return $controller->getPublicS3File($this->attributes['image']);
+            return $this->attributes['image'];
         } else {
             return $this->attributes['image'];
         }
-
     }
 }

@@ -14,6 +14,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
+    // ? upload any file
     public static function handleFileUpload($request, $field, $obj, $uploadPath)
     {
         if ($request->hasFile($field)) {
@@ -46,6 +47,7 @@ class Controller extends BaseController
         return null;
     }
 
+    // ? upload images in WEBPNG format
     public static function uploadImageInWEBP($request, $field, $obj, $uploadPath)
     {
         if ($request->hasFile($field)) {
@@ -55,8 +57,7 @@ class Controller extends BaseController
 
                 $mimeType = $image->getClientMimeType();
                 if (!Str::startsWith($mimeType, 'image/') || $mimeType === 'image/webp') {
-                    // ? pass the uploading task to uploadPrivateFileOnS3 function
-                    return self::uploadPrivateFileOnS3($image, $uploadPath);
+                    return self::handleFileUpload($request, $field, $obj, $uploadPath);
                 }
 
                 $uniqueFileName = uniqid();
@@ -85,113 +86,6 @@ class Controller extends BaseController
         }
 
         return null;
-    }
-
-    // ? inprogress incompelete function
-    public static function uploadWEBPImageOnS3($request, $field, $obj, $uploadPath, $ACLtype)
-    {
-        if ($request->hasFile($field)) {
-            $image = $request->file($field);
-
-            if ($image !== null) {
-
-                $mimeType = $image->getClientMimeType();
-                $uniqueFileName = uniqid();
-                $newFileName = $uniqueFileName . '.webp';
-
-                if (!Str::startsWith($mimeType, 'image/') || $mimeType === 'image/webp') {
-                    // ? just upload the file to S3 without conversion.
-                    $uploaded = Storage::disk('s3')->put($uploadPath . "/" . $newFileName, file_get_contents($image), $ACLtype);
-
-                    return $uploaded ? $uploadPath . '/' . $newFileName : null;
-                }
-
-                $im = imagecreatefromstring(file_get_contents($image));
-                imagepalettetotruecolor($im);
-                imagewebp($im, $newFileName, 80);
-                imagedestroy($im);
-
-                if ($obj !== null) {
-                    $oldImage = $obj->{$field};
-                    if ($oldImage !== null && $oldImage !== "") {
-                        // ? delete old image from bucket
-                        Storage::disk('s3')->delete($oldImage);
-                    }
-                }
-
-                $uploaded = Storage::disk('s3')->put($uploadPath . "/" . $newFileName, file_get_contents($newFileName), $ACLtype);
-
-                // ? clean up the temporary WEBP file
-                unlink($newFileName);
-
-                return $uploaded ? $uploadPath . '/' . $newFileName : null;
-            }
-        }
-
-        return null;
-    }
-
-    // ? upload a file to bucket privately.
-    public static function uploadPrivateFileOnS3($file, $path)
-    {
-        try {
-            $uploaded = $file->store($path, 's3');
-
-            return $uploaded;
-        } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Failed to upload resource on S3 bucket!",
-                    "error" => $th->getMessage(),
-                ],
-                500
-            );
-        }
-    }
-
-    // ? retrieve private file from bucket
-    public static function getPrivateS3File($filename)
-    {
-        try {
-            $client = Storage::disk('s3')->getClient();
-            $bucket = Config::get('filesystems.disks.s3.bucket');
-            $command = $client->getCommand('GetObject', [
-                'Bucket' => $bucket,
-                'Key' => $filename,
-            ]);
-            $presignedUrl = $client->createPresignedRequest($command, "+30 minutes")->getUri();
-
-            return (string) $presignedUrl;
-        } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Failed to retrive resource from S3 bucket!",
-                    "error" => $th->getMessage(),
-                ],
-                500
-            );
-        }
-    }
-
-    // ? retrieve public file from bucket
-    public static function getPublicS3File($filename)
-    {
-        try {
-            $uri = Storage::disk('s3')->url($filename);
-
-            return $uri;
-        } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    "success" => false,
-                    "message" => "Failed to retrive resource from S3 bucket!",
-                    "error" => $th->getMessage(),
-                ],
-                500
-            );
-        }
     }
 
     // ? success response handler

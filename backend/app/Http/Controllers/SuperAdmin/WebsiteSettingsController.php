@@ -38,8 +38,8 @@ class WebsiteSettingsController extends Controller
         try {
             $websiteSettings = WebsiteSetting::find(1);
 
-            $websiteLogo = self::uploadWEBPImageOnS3($request, 'site_logo', $websiteSettings, 'site', 'public');
-            $websiteFavicon = self::uploadWEBPImageOnS3($request, 'site_favicon', $websiteSettings, 'site', 'public');
+            $websiteLogo = self::uploadImageInWEBP($request, 'site_logo', $websiteSettings, 'site', 'public');
+            $websiteFavicon = self::uploadImageInWEBP($request, 'site_favicon', $websiteSettings, 'site', 'public');
 
             $websiteSettings->site_name = $request->site_name;
             $websiteSettings->site_email = $request->site_email;

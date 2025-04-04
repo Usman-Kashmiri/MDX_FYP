@@ -37,7 +37,7 @@ class DashboardController extends Controller
         try {
 
             $user = auth()->user();
-            $uploadedImage = self::uploadWEBPImageOnS3($request, 'image', $user, 'users', "public");
+            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, 'users', "public");
 
             if ($uploadedImage != "" && $uploadedImage != null) {
 
@@ -87,6 +87,7 @@ class DashboardController extends Controller
             ]);
         }
     }
+
     public function address_info(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -113,6 +114,7 @@ class DashboardController extends Controller
             ]);
         }
     }
+
     public function update_password(Request $request)
     {
         $validator = Validator::make($request->all(), [

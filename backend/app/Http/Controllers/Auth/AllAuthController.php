@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\UserLoggedIn;
-use App\Events\UserLoggedOut;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ClientResource;
 use App\Http\Resources\LawyerResource;
@@ -16,13 +14,10 @@ use App\Notifications\VerifyEmailNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Pusher\Pusher;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AllAuthController extends Controller
@@ -30,68 +25,6 @@ class AllAuthController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api', ['except' => ['login', 'register', 'register_with', 'login_with', 'logout', 'verify_email', 'resend_verify_email', 'reset_password', 'forgot_password']]);
-    }
-
-    public function connect(Request $request)
-    {
-        $user = auth()->user();
-        $user_id = $user->id;
-
-        $redis = Redis::connection();
-
-        // Add the user to the list of online users in Redis
-        $redis->sadd('online_users', $user_id);
-
-        $options = array(
-            'cluster' => config('app.PUSHER_APP_CLUSTER'),
-            'useTLS' => true
-        );
-
-        $pusher = new Pusher(
-            config('app.PUSHER_APP_KEY'),
-            config('app.PUSHER_APP_SECRET'),
-            config('app.PUSHER_APP_ID'),
-            $options
-        );
-
-        // Get the updated list of online users from Redis
-        $onlineUsers = $redis->smembers('online_users');
-
-        // Trigger the event with the updated list of online users
-        $pusher->trigger('my-channel', 'onlineUser', ['data' => $onlineUsers]);
-
-        return response()->json(['message' => 'Connected successfully']);
-    }
-
-    public function disconnect(Request $request)
-    {
-        $user = auth()->user();
-        $user_id = $user->id;
-
-        $redis = Redis::connection();
-
-        // Remove the user from the list of online users in Redis
-        $redis->srem('online_users', $user_id);
-
-        $options = array(
-            'cluster' => config('app.PUSHER_APP_CLUSTER'),
-            'useTLS' => true
-        );
-
-        $pusher = new Pusher(
-            config('app.PUSHER_APP_KEY'),
-            config('app.PUSHER_APP_SECRET'),
-            config('app.PUSHER_APP_ID'),
-            $options
-        );
-
-        // Get the updated list of online users from Redis
-        $onlineUsers = $redis->smembers('online_users');
-
-        // Trigger the event with the updated list of online users
-        $pusher->trigger('my-channel', 'onlineUser', ['data' => $onlineUsers]);
-
-        return response()->json(['message' => 'Disconnected successfully']);
     }
 
     public function register(Request $request)
@@ -148,90 +81,18 @@ class AllAuthController extends Controller
         }
     }
 
-    public function register_with(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "first_name" => 'required|min:2',
-            "last_name" => 'required|min:2',
-            "email" => 'required|email|unique:users',
-            "photoUrl" => 'required',
-            'terms_of_service' => 'required',
-            "role_id" => 'required',
-            "provider" => 'required',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], 400);
-        } else {
-            $user = User::create([
-                "first_name" => $request->first_name,
-                "last_name" => $request->last_name,
-                "email" => $request->email,
-                "password" => Hash::make($request->first_name . '@123'),
-                "image" => $request->photoUrl,
-                "terms_of_service" => $request->terms_of_service,
-                "role_id" => $request->role_id,
-                "email_verified_at" => now(),
-                "phone_number" => $request->phoneNumber,
-                "provider" => $request->provider,
-                "status" => '1',
-                "iban" => null,
-                "balance" => null,
-            ]);
-
-            return response()->json([
-                "res" => "success",
-                "message" => "Your account has been created successfully!",
-                "data" => $this->user_detail($user['id']),
-            ]);
-        }
-    }
-
-    public function login_with(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            "email" => 'required|email',
-        ]);
-        if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()->first()], 400);
-        } else {
-            $user = User::where('email', $request->email)->first();
-
-            if (!$user) {
-                return response()->json(["message" => "User not found!", "res" => "error"]);
-            }
-
-            $token = JWTAuth::fromUser($user);
-
-            if ($token) {
-                // User::where('id', $user->id)->update([
-                //     "is_online" => "1"
-                // ]);
-
-
-                return response()->json([
-                    "res" => "success",
-                    "message" => "Login Successfully!",
-                    "role_id" => $user->role_id,
-                    "token" => $this->respondWithToken($token),
-                    "user" => $this->user_detail($user['id'])
-                ]);
-            } else {
-                return response()->json(["message" => "Incorrect Password!", "res" => "warning"]);
-            }
-        }
-    }
-
     public function update_client(Request $request)
     {
         $validator = Validator::make($request->all(), [
             "first_name" => 'required|min:2',
             "last_name" => 'required|min:2',
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
             $user = auth()->user();
-            $uploadedImage = self::uploadWEBPImageOnS3($request, 'image', $user, 'users', "public");
+            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, 'users', "public");
             $user = User::where('id', $user()->id)->update([
                 "first_name" => $request->first_name,
                 "last_name" => $request->last_name,
@@ -274,8 +135,8 @@ class AllAuthController extends Controller
             } else {
 
                 $user = auth()->user();
-                $uploadedImage = self::uploadWEBPImageOnS3($request, 'image', $user, 'users', "public");
-                
+                $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, 'users', "public");
+
                 $user = User::find($user->id);
                 $user->first_name = $request->first_name;
                 $user->last_name = $request->last_name;
@@ -285,7 +146,7 @@ class AllAuthController extends Controller
                 $user->address = $request->address ?? null;
                 $user->city = $request->city ?? null;
                 $user->zip_code = $request->zip_code ?? null;
-                $user->image = $uploadedImage ?? null; 
+                $user->image = $uploadedImage ?? null;
                 // $user->short_bio = base64_encode($request->short_bio) ?? null;
                 $user->bar_membership_number = $request->bar_membership_number;
                 // $user->jurisdiction_id = $request->jurisdiction_id;
@@ -330,7 +191,6 @@ class AllAuthController extends Controller
                     "users" => $this->user_detail(auth()->user()->id),
                 ]);
             }
-
         } catch (\Exception $e) {
             return response()->json(['status' => 'error', 'message' => 'Something went wrong!', 'error' => $e->getMessage()], 500);
         }
@@ -352,11 +212,6 @@ class AllAuthController extends Controller
             $token = Auth::attempt(['email' => $request->email, 'password' => $request->password, "status" => "1"]);
 
             if ($token) {
-                // User::where('id', auth()->user()->id)->update([
-                //     "is_online" => "1"
-                // ]);
-
-
                 return response()->json([
                     "res" => "success",
                     "message" => "Login Successfully!",
@@ -402,29 +257,32 @@ class AllAuthController extends Controller
         $validator = Validator::make($request->all(), [
             "token" => 'required'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
             $user = User::where('verification_code', $request->token)->first();
+
             if (empty($user)) {
                 return response()->json(["res" => "error", 'message' => 'This account activation token is invalid.']);
             }
+
             $time = Carbon::parse($user->updated_at)->addMinutes(10)->toDateTimeString();
+
             if (now()->toDateTimeString() >= $time) {
                 return response()->json(["res" => "error", 'message' => 'Token valid timeout, Please generate new token.']);
             }
+
             if ($user->status == "1" and !empty($user->email_verified_at)) {
                 return response()->json(["res" => "warning", 'message' => 'Your account already activated. Please do a login.']);
             }
+
             User::where('id', $user->id)->update([
                 'status' => '1',
                 'email_verified_at' => now()
             ]);
 
-            $user = User::where('verification_code', $request->token)
-                ->where('id', $user['id'])
-                ->where('status', '1')
-                ->first();
+            $user = User::where('verification_code', $request->token)->where('id', $user['id'])->where('status', '1')->first();
 
             if (empty($user)) {
                 return response()->json(["res" => "error", 'message' => 'This account activation token is invalid.']);
@@ -434,9 +292,6 @@ class AllAuthController extends Controller
             $token = JWTAuth::fromUser($user);
 
             if ($token) {
-                // User::where('id', $user['id'])->update([
-                //     "is_online" => "1"
-                // ]);
                 return response()->json([
                     "res" => "success",
                     "message" => 'Your account is successfully activated.Login Successfully!',
@@ -453,17 +308,20 @@ class AllAuthController extends Controller
         $validator = Validator::make($request->all(), [
             "email" => 'required|email'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
             $user = User::where('email', $request->email)->first();
-            $time = Carbon::parse($user->updated_at)->addMinutes(10)->toDateTimeString();
+
             if (empty($user)) {
                 return response()->json(["res" => "error", 'message' => 'User Not Found!']);
             }
+
             if ($user->status == "1" and !empty($user->email_verified_at)) {
                 return response()->json(["res" => "warning", 'message' => 'Your account already activated. Please do a login.']);
             }
+
             // Check if a token was sent within the last 10 minutes
             $lastTokenSentAt = $user->updated_at;
             $cooldownPeriod = Carbon::parse($lastTokenSentAt)->addMinute(1);
@@ -471,13 +329,16 @@ class AllAuthController extends Controller
                 $remainingTime = Carbon::now()->diffInSeconds($cooldownPeriod);
                 return response()->json(["res" => "error", 'message' => 'A new verification token can only be sent after ' . $remainingTime . ' seconds.']);
             }
+
             // Generate a new verification token
             $verification_code = $this->code(8, 15);
+
             // A success response
             User::where('id', $user->id)->update([
                 "verification_code" => $verification_code,
                 "updated_at" => now()
             ]);
+
             $this->mail("Email Verification Token Again Sent!", $user->first_name . " " . $user->last_name, $request->email, 'If this was you, please provide the below token on the challenge page:' . $verification_code);
             return response()->json(["res" => "success", 'message' => 'New Verification Token Has Been Sent To Your Email Account!']);
         }
@@ -488,6 +349,7 @@ class AllAuthController extends Controller
         $validator = Validator::make($request->all(), [
             "email" => 'required|email'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
@@ -497,13 +359,16 @@ class AllAuthController extends Controller
             }
             // Generate a new verification token
             $verification_code = $this->code(8, 15);
+
             // A success response
             PasswordResets::unguard();
             PasswordResets::create([
                 "email" => $request->email,
                 "token" => $verification_code
             ]);
+
             PasswordResets::reguard();
+
             $this->mail("Reset Password Code Sent!", $user->first_name . " " . $user->last_name, $request->email, 'If this was you, please provide the below token on the challenge page:' . $verification_code);
             return response()->json(["res" => "success", 'message' => 'A reset password token has been sent to you, Please check your email inbox. Do not forget to check your spam folder as well.']);
         }
@@ -516,6 +381,7 @@ class AllAuthController extends Controller
             'password' => 'required|same:password_confirmation|min:6',
             "password_confirmation" => 'required'
         ]);
+
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
@@ -542,11 +408,13 @@ class AllAuthController extends Controller
         try {
 
             $data = [];
+
             if (!Auth::check()) {
                 $user = User::find($id);
             } else {
                 $user = User::find(auth()->user()->id);
             }
+
             if (!empty($user)) {
                 if ($user->role_id == 3) {
                     $reviews = true;
@@ -564,11 +432,9 @@ class AllAuthController extends Controller
                 }
                 return $data;
             }
-            //code...
         } catch (\Throwable $e) {
-        
+
             return response()->json(['status' => 'error', 'message' => 'Something went wrong while retrieving withdraw request', 'error' => $e->getMessage()], 500);
-     
         }
     }
 

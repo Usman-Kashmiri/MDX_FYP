@@ -6,8 +6,6 @@ import { signupFormSchema } from "../validations/ValidationSchema";
 import { Button, Checkbox, PasswordInput, TextInput } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import SignUpModal from "./SignUpModal";
-import googleimg from "../assets/images/google.png";
-import facebookimg from "../assets/images/facebook.png";
 import { privacy_policy, terms_of_service } from "../data/data";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -369,16 +367,6 @@ const SignupForm = () => {
             </span>{" "}
             sign in
           </p>
-        </div>
-        <div className="logosdiv gap-1">
-          <img
-            src={googleimg}
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
-          />
-          <img
-            src={facebookimg}
-            style={{ width: "30px", height: "30px", cursor: "pointer" }}
-          />
         </div>
       </Form>
     </Fade>

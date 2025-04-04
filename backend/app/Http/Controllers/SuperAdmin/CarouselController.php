@@ -49,7 +49,7 @@ class CarouselController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()->first()], 400);
         } else {
-            $image = self::uploadWEBPImageOnS3($request, 'image', null, 'carousel', "public");
+            $image = self::uploadImageInWEBP($request, 'image', null, 'carousel', "public");
 
             $entry = CarouselImage::create([
                 "image" => $image ?? $request->image,

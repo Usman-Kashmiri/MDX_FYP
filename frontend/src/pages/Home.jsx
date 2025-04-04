@@ -89,13 +89,6 @@ const Home = () => {
     carousels?.carousel_images?.length > 0 && setIsLoading(false);
   }, [carousels]);
 
-  const handleCaseModal = () => {
-    !isAuthenticated && errorMessage("Please login first to submit a case");
-    isAuthenticated
-      ? openCaseModal()
-      : navigate("/auth/login", { state: "/legal-professionals" });
-  };
-
   return (
     <>
       <Fade>
@@ -146,10 +139,10 @@ const Home = () => {
                   </h1>
                   {role !== "Lawyer" && (
                     <button
-                      onClick={handleCaseModal}
-                      className="py-lg-2 py-1 px-3 px-lg-5 mb-md-0 mb-4"
+                      onClick={() => navigate("/legal-professionals")}
+                      className="py-lg-2 py-1 px-3 px-lg-5 mb-md-0 mb-4 text-uppercase"
                     >
-                      REQUEST A FREE CONSULTATION
+                      Find a Legal Professional for your case
                     </button>
                   )}
                   <DescribeCaseModal
@@ -378,7 +371,7 @@ const Home = () => {
                   >
                     <Button
                       className="grey-gradient-btn font-poppins"
-                      onClick={handleCaseModal}
+                      onClick={() => navigate("/legal-professionals")}
                     >
                       Get Advice
                     </Button>

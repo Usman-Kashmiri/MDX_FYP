@@ -15,8 +15,7 @@ class carouselImagesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $image = $this->image;
-        $imagePath = $this->getImagePath($image);
+        $imagePath = $this->image ? asset('/' . $this->image) : null;
 
         return [
             "id" => $this->id,
@@ -26,12 +25,5 @@ class carouselImagesResource extends JsonResource
             "created_at" => $this->created_at,
             "updated_at" => $this->upated_at,
         ];
-    }
-
-    protected function getImagePath($image)
-    {
-        $controller = new Controller();
-
-        return $controller->getPrivateS3File($image);
     }
 }
