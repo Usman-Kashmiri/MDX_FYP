@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string("title");
             $table->longText("description");
             $table->date("appointment_date");
-            $table->time("appointment_start_time");
-            $table->time("appointment_end_time");
             $table->bigInteger("status")->comment("0 pending, 1 confirmed, 2 cancelled, 3 past");
             $table->timestamps();
         });

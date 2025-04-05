@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AllAuthController;
+use App\Http\Controllers\Client\AppointmentController;
 use App\Http\Controllers\NotificationsController;
 use App\Http\Controllers\Client\DashboardController as ClientDashboardController;
 use App\Http\Controllers\SuperAdmin\AdminController;
@@ -125,6 +126,7 @@ Route::group(["prefix" => "super-admin", "middleware" => ["auth:api", "isSuperAd
         Route::get("/detail/{id}", [ClientController::class, 'show']);
     });
     // Clients End
+
 
     // carousel Started
     Route::group(["prefix" => "carousel"], function () {
@@ -348,6 +350,13 @@ Route::group(["prefix" => "client", "middleware" => ["isClient", "auth:api", "is
     Route::post('/change-password', [ClientDashboardController::class, 'update_password']);
     Route::put('/email-notifications/{status}', [AllAuthController::class, 'email_notifications']);
     // Client Dashboard End
+
+    // Appointments Start
+    Route::group(["prefix" => "appointments"], function () {
+        Route::get("/list", [AppointmentController::class, 'index']);
+        Route::post("/book", [AppointmentController::class, 'store']);
+    });
+    // Appointments End
 });
 // * Client APIs End
 
