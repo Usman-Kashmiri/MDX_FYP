@@ -21,7 +21,7 @@ class ClientResource extends JsonResource
             "last_name" => $this->last_name,
             "email" => $this->email,
             "role" => $this?->role?->name,
-            "image" => $this->image,
+            "image" => asset('/uploads/clients/' . $this->image),
             "phone_number" => $this->phone_number,
             "address" => $this->address,
             "country" => [

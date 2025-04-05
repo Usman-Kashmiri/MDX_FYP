@@ -24,11 +24,16 @@ class Controller extends BaseController
                 $newFileName = $uniqueFileName . '.' . $fileExtension;
                 $path = public_path($uploadPath);
 
+                // Ensure the directory exists
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true); // Create the directory if it doesn't exist
+                }
+
                 if ($obj !== null) {
                     $oldImage = $obj->{$field};
 
                     if ($oldImage !== null && $oldImage !== "") {
-                        $oldImagePath = $path . $oldImage;
+                        $oldImagePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, public_path($uploadPath . $oldImage));
 
                         if (file_exists($oldImagePath)) {
                             unlink($oldImagePath);
@@ -61,16 +66,23 @@ class Controller extends BaseController
                 $uniqueFileName = uniqid();
                 $path = public_path($uploadPath);
                 $newFileName = $uniqueFileName . '.webp';
+
+                // Ensure the directory exists
+                if (!file_exists($path)) {
+                    mkdir($path, 0777, true); // Create the directory if it doesn't exist
+                }
+
                 $im = imagecreatefromstring(file_get_contents($image));
                 imagepalettetotruecolor($im);
-                imagewebp($im, $newFileName, 80);
+                $fullPath = $path . DIRECTORY_SEPARATOR . $newFileName;
+                imagewebp($im, $fullPath, 80);
                 imagedestroy($im);
 
                 if ($obj !== null) {
                     $oldImage = $obj->{$field};
 
                     if ($oldImage !== null && $oldImage !== "") {
-                        $oldImagePath = $path . $oldImage;
+                        $oldImagePath = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, public_path($uploadPath . $oldImage));
 
                         if (file_exists($oldImagePath)) {
                             unlink($oldImagePath);

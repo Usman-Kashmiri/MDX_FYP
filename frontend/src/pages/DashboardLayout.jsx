@@ -73,27 +73,6 @@ export const DashboardLayout = () => {
           </Container>
         </div>
       </Fade>
-
-      <ChatIcon count={unreadMessages} />
     </HandleLogoutContext.Provider>
-  );
-};
-
-export const ChatIcon = ({ count }) => {
-  const role = UseGetRole();
-
-  return (
-    <>
-      {(role === "Lawyer" || role === "Client") && (
-        <div className="chat-icon-container">
-          <Link to={"/chat"}>
-            <button className="chat-icon-button">
-              {count > 0 && <span className="unread-count">{count}</span>}
-              <AiOutlineWechat style={{ fontSize: "30px", color: "white" }} />
-            </button>
-          </Link>
-        </div>
-      )}
-    </>
   );
 };

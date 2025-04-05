@@ -7,7 +7,6 @@ import hammer from "../assets/images/legal-professionals/hammer.webp";
 import hammerBottom from "../assets/images/legal-professionals/hammer-bottom.webp";
 import { useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
-import { ChatIcon } from "./DashboardLayout";
 import Header from "../components/layout/Header";
 import { useLocation } from "react-router-dom";
 import { useAsideContext } from "../contexts/AsideContext";
@@ -168,8 +167,6 @@ const FindLawyer = () => {
           </Container>
         </div>
       </div>
-
-      <ChatIcon />
     </Fade>
   );
 };

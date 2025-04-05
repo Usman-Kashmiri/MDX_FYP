@@ -405,4 +405,5 @@ Route::group(["prefix" => "newsletters"], function () {
 // * API for Development Purpose only
 Route::get('get-user', [AllController::class, 'get_user']);
 Route::post('upload-file', [HomeController::class, 'handleFileUpload']);
+Route::post('upload-image', [SuperAdminDashboardController::class, 'profileimage']);
 Route::get('fetch-files', [HomeController::class, 'fetchFiles']);

@@ -1,15 +1,18 @@
 import React, { useEffect } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
-import Ratings from "../../components/Ratings";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 import { getLawyerById } from "../../redux/actions/webActions";
-import { Avatar, Flex, Rating, Text } from "@mantine/core";
+import { Avatar, Button } from "@mantine/core";
+import { useAuth, UseGetRole } from "../../hooks/auth";
 
 const LawyerProfile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
+  const isAuthenticated = useAuth();
+  const role = UseGetRole();
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,6 +31,12 @@ const LawyerProfile = () => {
 
   const { user } = useSelector((state) => state.auth);
   const { LawyerById } = useSelector((state) => state.web);
+
+  const handleAppointmentRequest = () => {
+    isAuthenticated && role == "Client"
+      ? navigate("/dashboard/book-appointment", { state: id })
+      : navigate("/auth/login", { state: `/lawyer/${id}` });
+  };
 
   return (
     <>
@@ -92,34 +101,13 @@ const LawyerProfile = () => {
                               </a>
                             </Col>
 
-                            <Col xs={12} className="p-lg-0 p-md-3">
-                              <div className="mt-4 client-ratings-and-reviews">
-                                <div className="ratings d-flex flex-column gap-2">
-                                  <div className="d-flex justify-content-between align-items-center">
-                                    {LawyerById ? (
-                                      <Ratings
-                                        ratings={
-                                          isNaN(LawyerById?.ratings)
-                                            ? 0
-                                            : Math.round(LawyerById?.ratings)
-                                        }
-                                      />
-                                    ) : (
-                                      <Ratings
-                                        ratings={Math.round(
-                                          user?.userData?.average_rating
-                                        )}
-                                      />
-                                    )}
-                                    <span className="font-poppins">
-                                      {LawyerById
-                                        ? LawyerById?.reviews?.length
-                                        : 20}{" "}
-                                      reviews
-                                    </span>
-                                  </div>
-                                </div>
-                              </div>
+                            <Col xs={12} className="p-lg-0 p-md-3 mt-3 mb-4">
+                              <Button
+                                onClick={handleAppointmentRequest}
+                                className="signinbtn w-auto"
+                              >
+                                Request an Appointment
+                              </Button>
                             </Col>
                           </Col>
 
@@ -157,66 +145,6 @@ const LawyerProfile = () => {
                 </Row>
               </Container>
             </section>
-
-            <section className="user-profile mb-5">
-              <Container>
-                <p className="top text-uppercase font-raleway fs-4 ms-1  fw-bold">
-                  Reviews
-                </p>
-                <Row sm={1} md={2} lg={2}>
-                  {LawyerById?.reviews?.length ? (
-                    LawyerById?.reviews.map((value, index) => (
-                      <Col key={index}>
-                        <div
-                          className="mt-3 px-3 col-5 mb-3 p-2 rounded w-100"
-                          style={{ background: "#f8f8f9 " }}
-                        >
-                          <Flex gap={20} align={"center"}>
-                            <Avatar
-                              src={value.client_image}
-                              alt={`${value.client_image} pic`}
-                              size={50}
-                              radius={"xl"}
-                            />
-
-                            <Flex direction={"column"} mb={20}>
-                              <p className="fs-5 text-uppercase mt-2 mb-0">
-                                {value.client_name}
-                              </p>
-                              <Rating value={value.rating} readOnly />
-                            </Flex>
-                          </Flex>
-                          <div className="d-flex  ms-6 me-6">
-                            <Text
-                              sx={{
-                                maxWidth: "75%",
-                                "@media screen and (max-width: 767px)": {
-                                  maxWidth: "100%",
-                                },
-                              }}
-                            >
-                              {value?.feedback
-                                ? value?.feedback
-                                : "No Comments!"}
-                            </Text>
-                          </div>
-                        </div>
-                      </Col>
-                    ))
-                  ) : (
-                    <div className="d-flex">
-                      <p className="fs-5 text-uppercase mt-2 ms-2">
-                        No reviews yet...
-                      </p>
-                    </div>
-                  )}
-                  {/* </Col> */}
-                  {/* <Col lg={4} className="d-flex justify-content-end mt-lg-0 mt-4">
-                <SimilarProfiles />
-              </Col> */}
-                </Row>
-              </Container>
-            </section>
           </div>
         ) : (
           <div
@@ -235,7 +163,6 @@ const LawyerProfile = () => {
             />
           </div>
         )}
-        {/* <Footer /> */}
       </Fade>
     </>
   );

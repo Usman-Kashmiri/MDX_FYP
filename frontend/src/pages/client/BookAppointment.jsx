@@ -1,16 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { DateInput } from "@mantine/dates";
-import {
-  Button,
-  Flex,
-  Input,
-  Loader,
-  Select,
-  Text,
-  Textarea,
-  TextInput,
-  Title,
-} from "@mantine/core";
+import { Button, Input, Select, Textarea, TextInput } from "@mantine/core";
 import Fade from "react-reveal/Fade";
 import { Col, Row } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,73 +8,73 @@ import {
   getClientDashboardCases,
   getLawyerTimeSlot,
   bookAppointment,
-  getLawyerAvailibility,
 } from "../../redux/actions/clientActions";
 import { useForm, yupResolver } from "@mantine/form";
 import { AppointmentSchema } from "../../validations/ValidationSchema";
 import { errorMessage, successMessage } from "../../globalFunctions";
 import moment from "moment";
 import dayjs from "dayjs";
-import { DataTable } from "mantine-datatable";
+import { getLawyerById } from "../../redux/actions/webActions";
+import { useLocation } from "react-router-dom";
 
 const BookAppointment = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
   const calendarRef = useRef(null);
   const [islawyerSelected, setIsLawyerSelected] = useState(false);
   const [isDateSelected, setIsDayteSelected] = useState(false);
   const [dateOfAppointment, setDateOfAppointment] = useState();
-  const [timeSlots, setTimeSlots] = useState([]);
-  const [isTimeSlotsLoading, setTimeSlotsLoading] = useState(false);
-  const [isAvailibiltyLoading, setAvailibiltyLoading] = useState(false);
-
-  const state = useSelector((state) => state?.client);
+  const { LawyerById } = useSelector((state) => state.web);
 
   useEffect(() => {
     dispatch(getClientDashboardCases("approved", { page: 1, per_page: 100 }));
   }, []);
 
   useEffect(() => {
-    if (state?.timeSlot) {
-      setTimeSlots(
-        state?.timeSlot?.map((item) => {
-          return {
-            label: `${item?.start_time} - ${item?.end_time}`,
-            value: `${item?.start_time} - ${item?.end_time}`,
-          };
-        })
-      );
-    }
-  }, [state?.timeSlot]);
+    dispatch(getLawyerById(location?.state));
+  }, []);
 
   const { dashboard, loading } = useSelector((state) => state.client);
 
-  const uniqueArray = dashboard?.reduce(
-    (acc, value) => {
-      const lawyerId = value.lawyer.id;
-      if (!acc.some((item) => item.value === lawyerId)) {
-        acc.push({
-          value: lawyerId,
-          label: value.lawyer.first_name + " " + value.lawyer.last_name,
-        });
-      }
-      return acc;
+  const uniqueArray = dashboard?.reduce((acc, value) => {
+    const lawyerId = value.lawyer.id;
+
+    if (!acc.some((item) => item.value === lawyerId)) {
+      acc.push({
+        value: lawyerId,
+        label: value.lawyer.first_name + " " + value.lawyer.last_name,
+      });
+    }
+
+    return acc;
+  }, []);
+
+  let finalArray = [
+    {
+      label: "Select a Lawyer",
+      value: "",
+      disabled: true,
     },
-    [
-      {
-        label: "Select a Lawyer",
-        value: "yo",
-        disabled: true,
-      },
-    ]
+  ];
+
+  if (location?.state && LawyerById) {
+    finalArray.push({
+      value: LawyerById?.id,
+      label: LawyerById?.first_name + " " + LawyerById?.last_name,
+    });
+  }
+
+  const filteredUniqueArray = uniqueArray.filter(
+    (item) => item.value !== LawyerById?.id
   );
+
+  finalArray = [...finalArray, ...filteredUniqueArray];
 
   const initialValues = {
     title: "",
     lawyer_id: "",
     description: "",
     appointment_date: "",
-    appointment_start_time: "",
-    appointment_end_time: "",
   };
 
   const validateInputOnChange = {
@@ -92,8 +82,6 @@ const BookAppointment = () => {
     lawyer_id: "",
     description: "",
     appointment_date: "",
-    appointment_start_time: "",
-    appointment_end_time: "",
   };
 
   const form = useForm({
@@ -115,10 +103,8 @@ const BookAppointment = () => {
         };
         const res = await dispatch(bookAppointment(data));
         if (res?.res === "success") {
-          setTimeSlots([]);
           successMessage("Appoinment submit successfully");
           setDateOfAppointment(null);
-          setAppointmentTime("");
           setIsLawyerSelected("");
           setIsDayteSelected("");
           form.reset();
@@ -128,36 +114,10 @@ const BookAppointment = () => {
   };
 
   const handleCalender = async (e) => {
-    setTimeSlotsLoading(true);
     setDateOfAppointment(e);
     const date = moment(e, "ddd MMM DD YYYY HH:mm:ss ZZ");
     setIsDayteSelected(date.format("YYYY-MM-DD"));
     await form.setFieldValue("appointment_date", date.format("YYYY-MM-DD"));
-    if (
-      islawyerSelected &&
-      !form?.errors?.appointment_date &&
-      !form?.errors?.lawyer_id
-    ) {
-      try {
-        const res = await dispatch(
-          getLawyerTimeSlot({
-            lawyer_id: islawyerSelected,
-            appointment_date: date.format("YYYY-MM-DD"),
-          })
-        );
-
-        setTimeSlotsLoading(false);
-
-        if (res.res === "error" || res.data.length < 1) {
-          errorMessage(
-            "There are no time slots available for the selected date, Please selected any other date!"
-          );
-        }
-      } catch (error) {
-        setTimeSlotsLoading(false);
-        console.error("An error occurred:", error);
-      }
-    }
   };
 
   const SelectLawyerHandle = async (value) => {
@@ -176,37 +136,11 @@ const BookAppointment = () => {
     }
   };
 
-  const [appointmentTime, setAppointmentTime] = useState("");
-
-  const handleAppointment = async (value) => {
-    const [startTime, endTime] = value.split(" - ");
-    setAppointmentTime(value);
-    form.setFieldValue("appointment_start_time", startTime);
-    form.setFieldValue("appointment_end_time", endTime);
-  };
-
-  const fetchLawyers = async () => {
-    setAvailibiltyLoading(true);
-    try {
-      if (form.values.lawyer_id !== "") {
-        await dispatch(getLawyerAvailibility(form.values.lawyer_id));
-        setAvailibiltyLoading(false);
-      }
-    } catch (error) {
-      setAvailibiltyLoading(false);
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchLawyers();
-  }, [form.values.lawyer_id]);
-
   return (
     <Fade>
-      <div className="p-md-5 p-3  " style={{ minHeight: "110vh" }}>
-        <h2>Appointment with Lawyer</h2>
+      <div className="p-md-5 p-3" style={{ minHeight: "80vh" }}>
         <form className=" mx-md-4 mx-sm-3 mx-2" onSubmit={handleFormSubmit}>
+          <h2 className="mb-3">Request An Appointment with Your Lawyer</h2>
           <Row>
             <Col sm={6} className="mt-3">
               <Input.Wrapper id={1} label="Select Lawyer" required>
@@ -214,7 +148,8 @@ const BookAppointment = () => {
                   name="lawyer_id"
                   id="lawyer_id"
                   placeholder="Select lawyer"
-                  data={uniqueArray}
+                  data={finalArray}
+                  defaultValue={location?.state || ""}
                   value={form.values.lawyer_id}
                   onChange={(value) => {
                     SelectLawyerHandle(value);
@@ -226,30 +161,7 @@ const BookAppointment = () => {
                 />
               </Input.Wrapper>
             </Col>
-            <Col sm={6} className="mt-3">
-              <Input.Wrapper id={2} label="Subject">
-                <TextInput
-                  name="title"
-                  id="title"
-                  withAsterisk
-                  placeholder="Enter subject"
-                  {...form.getInputProps("title")}
-                  error={form.errors.title}
-                />
-              </Input.Wrapper>
-            </Col>
-            <Col xs={12} className="mt-3">
-              <Textarea
-                name="description"
-                id="description"
-                minRows={6}
-                maxRows={6}
-                placeholder=" Enter Description"
-                label="Description"
-                withAsterisk
-                {...form.getInputProps("description")}
-              />
-            </Col>
+
             <Col sm={6} className="mt-3">
               <DateInput
                 ref={calendarRef}
@@ -286,33 +198,37 @@ const BookAppointment = () => {
                 }
               />
             </Col>
-            <Col sm={6} className="mt-3">
-              <Input.Wrapper id={2} label="Time slot" required>
-                <Flex align="center" gap={10}>
-                  {isTimeSlotsLoading && <Loader size="sm" color="#db9753" />}
-                  <Select
-                    onChange={(e) => {
-                      handleAppointment(e);
-                    }}
-                    value={appointmentTime}
-                    name="appointment_start_time"
-                    id="appointment_start_time"
-                    placeholder="Select Time slot"
-                    sx={{ flex: 1 }}
-                    disabled={isTimeSlotsLoading}
-                    data={timeSlots}
-                    onBlur={() => {
-                      form.validateField("appointment_start_time");
-                    }}
-                    error={form.errors.appointment_start_time}
-                  />
-                </Flex>
+
+            <Col xs={12} className="mt-3">
+              <Input.Wrapper id={2} label="Subject">
+                <TextInput
+                  name="title"
+                  id="title"
+                  withAsterisk
+                  placeholder="Enter subject"
+                  {...form.getInputProps("title")}
+                  error={form.errors.title}
+                />
               </Input.Wrapper>
+            </Col>
+
+            <Col xs={12} className="mt-3">
+              <Textarea
+                name="description"
+                id="description"
+                minRows={8}
+                maxRows={14}
+                autosize
+                placeholder=" Enter Description"
+                label="Description"
+                withAsterisk
+                {...form.getInputProps("description")}
+              />
             </Col>
 
             <Col
               style={{
-                marginTop: "3rem",
+                marginTop: "2rem",
                 display: "flex",
                 justifyContent: "end",
                 width: "100%",
@@ -325,63 +241,14 @@ const BookAppointment = () => {
                   className="signinbtn"
                   type="submit"
                 >
-                  Submit
+                  Request
                 </Button>
               </div>
             </Col>
           </Row>
         </form>
-
-        <Flex direction="column" gap={15}>
-          <Title order={3}>Lawyer's Availibility:</Title>
-          <LawyersAvailibility loading={isAvailibiltyLoading} />
-        </Flex>
       </div>
     </Fade>
-  );
-};
-
-const LawyersAvailibility = ({ loading }) => {
-  const { lawyerAvailibility } = useSelector((store) => store.client);
-  const columns = [
-    {
-      accessor: "id",
-      title: <Text>#</Text>,
-      width: "auto",
-      render: (_, i) => <Text>{i + 1}</Text>,
-    },
-    {
-      accessor: "day",
-      width: "auto",
-      title: "Day",
-    },
-    {
-      accessor: "start_time",
-      width: "auto",
-      title: "Start Time",
-    },
-    {
-      accessor: "end_time",
-      width: "auto",
-      title: "End Time",
-    },
-  ];
-
-  return (
-    <DataTable
-      className="data-table-with-actions"
-      withBorder
-      records={lawyerAvailibility}
-      withColumnBorders
-      striped
-      highlightOnHover
-      verticalSpacing={10}
-      columns={columns}
-      fetching={loading}
-      minHeight={400}
-      loaderVariant="dots"
-      noRecordsText="No records found"
-    />
   );
 };
 

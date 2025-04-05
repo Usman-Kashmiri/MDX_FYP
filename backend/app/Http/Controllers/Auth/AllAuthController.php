@@ -434,7 +434,7 @@ class AllAuthController extends Controller
                         "last_name" => $user->last_name,
                         "role" => $user->role->name,
                         "email" => $user->email,
-                        "image" => asset($user->image),
+                        "image" => asset('/uploads/admins/' . $user->image),
                         "is_online" => $user->is_online,
                         "status" => ($user->status == 1) ? "Active" : "Inactive",
                         "provider" => $user->provider,

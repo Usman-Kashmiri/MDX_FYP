@@ -118,10 +118,6 @@ const AccountSetting = () => {
                   className="notification-switch"
                   size="lg"
                   checked={isNotificationEnabled}
-                  // onChange={(event) => {
-                  //   const value = event.currentTarget.checked ? 1 : 0;
-                  //   dispatch(changeEmailNotification(role, value));
-                  // }}
                   onChange={(event) =>
                     handleNotificationSwitch(
                       event.currentTarget.checked ? 1 : 0
@@ -130,13 +126,6 @@ const AccountSetting = () => {
                 />
               </div>
             </div>
-          </Tabs.Panel>
-
-          <Tabs.Panel value="payment-method" pl="xs" pt="lg">
-            Tax information tab content
-          </Tabs.Panel>
-          <Tabs.Panel value="availability" pl="xs" pt="lg">
-            <AvailabilityLawyer />
           </Tabs.Panel>
         </Tabs>
       </div>

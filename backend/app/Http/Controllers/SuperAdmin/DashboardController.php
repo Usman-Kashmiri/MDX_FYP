@@ -252,7 +252,7 @@ class DashboardController extends Controller
 
         try {
             $user = auth()->user();
-            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, '');
+            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, 'uploads/admins/');
 
             if ($uploadedImage != "" && $uploadedImage != null) {
                 User::where('id', $user->id)->update([

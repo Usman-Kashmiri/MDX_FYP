@@ -8,7 +8,6 @@ import { headerNavigation } from "../../data/data";
 import UserSettingsDropdown from "../UserSettingsDropdown";
 import { useDisclosure } from "@mantine/hooks";
 import { Burger } from "@mantine/core";
-import { ChatIcon } from "../../pages/DashboardLayout";
 import { useAsideContext } from "../../contexts/AsideContext";
 import {
   CloseDrawerIcon,
@@ -108,7 +107,6 @@ const Header = () => {
           {token && <UserSettingsDropdown />}
         </div>
       </Container>
-      <ChatIcon />
     </Navbar>
   );
 };

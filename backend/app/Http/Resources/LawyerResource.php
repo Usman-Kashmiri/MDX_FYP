@@ -31,10 +31,9 @@ class LawyerResource extends JsonResource
             "first_name" => $this->first_name,
             "last_name" => $this->last_name,
             "email" => $this->email,
-            "image" => $this->image,
+            "image" => asset('/uploads/lawyers/' . $this->image),
             "phone_number" => $this->phone_number,
             "address" => $this->address,
-            // "short_bio" => base64_decode($this->short_bio),
             "role" => $this->role->name,
             "bar_membership_number" => $this->bar_membership_numer,
             "area_expertise" => $this->getExpertise($this->lawyer_expertise),
@@ -105,18 +104,18 @@ class LawyerResource extends JsonResource
     static public function getJurisdictions($jury)
     {
         $array = collect($jury)->map(function ($item) {
-            return (object) 
-                [
-                    "id" => $item?->jurisdiction['id'],
-                    "name" => $item?->jurisdiction['name'],
-                    "status" => $item?->jurisdiction['status'],
-                    "country" => [
-                        "id" => $item?->jurisdiction['country']?->id,
-                        "name" => $item?->jurisdiction['country']?->name,
-                    ],
-                    "created_at" => $item?->jurisdiction['created_at'],
-                    "updated_at" => $item?->jurisdiction['updated_at'],
-                ];
+            return (object)
+            [
+                "id" => $item?->jurisdiction['id'],
+                "name" => $item?->jurisdiction['name'],
+                "status" => $item?->jurisdiction['status'],
+                "country" => [
+                    "id" => $item?->jurisdiction['country']?->id,
+                    "name" => $item?->jurisdiction['country']?->name,
+                ],
+                "created_at" => $item?->jurisdiction['created_at'],
+                "updated_at" => $item?->jurisdiction['updated_at'],
+            ];
         })->toArray();
 
         return $array;

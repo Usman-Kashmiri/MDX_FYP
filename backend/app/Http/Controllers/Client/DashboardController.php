@@ -37,7 +37,7 @@ class DashboardController extends Controller
         try {
 
             $user = auth()->user();
-            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, '');
+            $uploadedImage = self::uploadImageInWEBP($request, 'image', $user, 'uploads/clients/');
 
             if ($uploadedImage != "" && $uploadedImage != null) {
 

@@ -280,7 +280,6 @@ export const AddUserSchema = yup.object({
     .string()
     .required("Confirm password is required.")
     .oneOf([yup.ref("password"), null], "Passwords must match."),
-     
 });
 
 export const AddLawyerSchema = yup.object({
@@ -557,10 +556,6 @@ export const AppointmentSchema = yup.object({
         return selectedDate > today;
       }
     ),
-  appointment_start_time: yup
-    .string()
-    .required("Appointment start time is required!"),
-  // meeting_type: yup.string().required("meeting type is required!"),
 });
 export const ContractCreationSchema = yup.object().shape({
   contract_type: yup.string().required("Please Select Contract Type"),
