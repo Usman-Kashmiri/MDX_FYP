@@ -29,8 +29,6 @@ export const fetchCases =
         type: caseConstants.FETCH_CASES_FAILURE,
         payload: error.response.data.message || "Server Error",
       });
-      // errorMessage(error?.response?.data?.message || "Server Error");
-      // errorMessage(error?.response?.data?.message || "Server Error");
     }
   };
 

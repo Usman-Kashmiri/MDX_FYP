@@ -428,7 +428,18 @@ class AllAuthController extends Controller
                 } elseif ($user->role_id == 4) {
                     $data = new ClientResource($user);
                 } else {
-                    $data = ["id" => $user->id, "first_name" => $user->first_name, "last_name" => $user->last_name, "role" => $user->role->name, "email" => $user->email, "image" => $user->image, "is_online" => $user->is_online, "status" => ($user->status == 1) ? "Active" : "Inactive", "provider" => $user->provider, "dob" => date_format(date_create($user->dob), "Y-m-d")];
+                    $data = [
+                        "id" => $user->id,
+                        "first_name" => $user->first_name,
+                        "last_name" => $user->last_name,
+                        "role" => $user->role->name,
+                        "email" => $user->email,
+                        "image" => asset($user->image),
+                        "is_online" => $user->is_online,
+                        "status" => ($user->status == 1) ? "Active" : "Inactive",
+                        "provider" => $user->provider,
+                        "dob" => date_format(date_create($user->dob), "Y-m-d")
+                    ];
                 }
                 return $data;
             }

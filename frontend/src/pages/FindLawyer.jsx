@@ -5,18 +5,15 @@ import LawyerCard from "../components/LawyerCard";
 import SideNav from "../components/SideNav";
 import hammer from "../assets/images/legal-professionals/hammer.webp";
 import hammerBottom from "../assets/images/legal-professionals/hammer-bottom.webp";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 import { ChatIcon } from "./DashboardLayout";
 import Header from "../components/layout/Header";
 import { useLocation } from "react-router-dom";
 import { useAsideContext } from "../contexts/AsideContext";
-import { fetchCases } from "../redux/actions/caseActions";
 
 const FindLawyer = () => {
-  const dispatch = useDispatch();
   const { foundLawyers } = useSelector((state) => state.web);
-  const { isAuthenticated } = useSelector((store) => store.auth);
   const [totalPage, setTotalPage] = useState(0);
   const { state: locationProp } = useLocation();
 
@@ -26,10 +23,6 @@ const FindLawyer = () => {
   useEffect(() => {
     setFilteredLawyers(foundLawyers);
   }, [foundLawyers]);
-
-  useEffect(() => {
-    isAuthenticated && dispatch(fetchCases("all"));
-  }, [isAuthenticated]);
 
   const { isAsideOpened, closeAside } = useAsideContext();
 

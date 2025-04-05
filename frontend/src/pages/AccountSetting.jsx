@@ -1,10 +1,9 @@
 import { Button, Switch, Tabs, Text } from "@mantine/core";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import ProfileTabContent from "../components/ProfileTabContent";
 import { useMediaQuery } from "@mantine/hooks";
 import Fade from "react-reveal/Fade";
-import { UseGetProvider, UseGetRole } from "../hooks/auth";
+import { UseGetRole } from "../hooks/auth";
 import AvailabilityLawyer from "../components/AvailabilityLawyer";
 import { changeEmailNotification } from "../redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,7 +15,6 @@ import { successMessage } from "../globalFunctions";
 const AccountSetting = () => {
   const dispatch = useDispatch();
   const role = UseGetRole();
-  const provider = UseGetProvider();
   const smallScreen = useMediaQuery("(max-width: 767px)");
   const { userData } = useSelector((state) => state?.auth?.user);
   const [isNotificationEnabled, setNotificationEnabled] = useState(
@@ -89,10 +87,6 @@ const AccountSetting = () => {
           <Tabs.List className="pb-4">
             <Tabs.Tab value="account">Account</Tabs.Tab>
             <Tabs.Tab value="notification">Notifications</Tabs.Tab>
-            <Tabs.Tab value="payment-method">Payment Method</Tabs.Tab>
-            {role === "Lawyer" ? (
-              <Tabs.Tab value="availability">Availability</Tabs.Tab>
-            ) : null}
             <Button
               p={0}
               sx={{

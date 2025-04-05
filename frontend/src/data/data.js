@@ -1,6 +1,5 @@
 import {
   AiFillQuestionCircle,
-  AiOutlineAppstore,
   AiOutlinePhone,
   AiOutlineSetting,
   AiTwotoneHome,
@@ -20,11 +19,8 @@ import {
   FaQuestionCircle,
   FaUserCircle,
   FaUsers,
-  FaWallet,
 } from "react-icons/fa";
-import { BiMoneyWithdraw, BiWorld } from "react-icons/bi";
-import { GrContact } from "react-icons/gr";
-import { SlEnvolopeLetter } from "react-icons/sl";
+import { BiWorld } from "react-icons/bi";
 import { CgWebsite } from "react-icons/cg";
 import { PiSlideshow } from "react-icons/pi";
 import { SiAboutdotme } from "react-icons/si";
@@ -689,8 +685,6 @@ export const role_for_register = `
       <br />
       <button disabled={!selectedOption}>Submit</button>
     </div>
-
-
 `;
 
 export const search_pages = [
@@ -700,7 +694,6 @@ export const search_pages = [
     description: "localhost:3000/",
     path: "/",
   },
-
   {
     label: "About",
     value: "/about-us",
@@ -772,18 +765,6 @@ export const lawyer_search_pages = [
     path: "/faqs",
   },
   {
-    label: "Dashboard ",
-    value: "/lawyer/dashboard",
-    description: "localhost:3000/lawyer/dashboard",
-    path: "/lawyer/dashboard",
-  },
-  {
-    label: "Time Slot ",
-    value: "/dashboard/time-slot",
-    description: "localhost:3000/dashboard/time-slot",
-    path: "/dashboard/time-slot",
-  },
-  {
     label: "Setting",
     value: "/dashboard/account-settings",
     description: "localhost:3000/dashboard/account-settings",
@@ -804,7 +785,6 @@ export const client_search_pages = [
     description: "localhost:3000/",
     path: "/",
   },
-
   {
     label: "About",
     value: "/about-us",
@@ -842,12 +822,6 @@ export const client_search_pages = [
     path: "/client/dashboard",
   },
   {
-    label: "Consultation ",
-    value: "/dashboard/consultation",
-    description: "localhost:3000/dashboard/consultation",
-    path: "/dashboard/consultation",
-  },
-  {
     label: "Setting",
     value: "/dashboard/account-settings",
     description: "localhost:3000/dashboard/account-settings",
@@ -863,11 +837,6 @@ export const client_search_pages = [
 
 export const lawyerAsideNavigation = [
   {
-    icon: AiOutlineAppstore,
-    link: "/lawyer/dashboard",
-    label: "Dashboard",
-  },
-  {
     icon: AiOutlineSetting,
     link: "/lawyer/account-settings",
     label: "Account Settings",
@@ -877,24 +846,9 @@ export const lawyerAsideNavigation = [
     link: "/lawyer/appointments",
     label: "Appointments",
   },
-  {
-    icon: HiClipboardDocumentList,
-    link: "/lawyer/contracts",
-    label: "Contracts",
-  },
-  {
-    icon: FaWallet,
-    link: "/lawyer/wallet",
-    label: "Wallet",
-  },
 ];
 
 export const clientAsideNavigation = [
-  {
-    icon: AiOutlineAppstore,
-    link: "/client/dashboard",
-    label: "Dashboard",
-  },
   {
     icon: AiOutlineSetting,
     link: "/client/account-settings",
@@ -904,11 +858,6 @@ export const clientAsideNavigation = [
     icon: MdEventAvailable,
     link: "/client/appointments",
     label: "Appointments",
-  },
-  {
-    icon: HiClipboardDocumentList,
-    link: "/client/contracts",
-    label: "Contracts",
   },
 ];
 
@@ -947,24 +896,6 @@ export const adminAsideNavigation = [
     icon: <FaChessQueen />,
     label: "Areas of practice",
     path: "/admin/practice-areas",
-    allow: ["admin", "superadmin"],
-  },
-  {
-    icon: <HiClipboardDocumentList />,
-    label: "Contracts",
-    path: "/admin/contracts",
-    allow: ["superadmin"],
-  },
-  {
-    icon: <GrContact />,
-    label: "Messages",
-    path: "/admin/messages",
-    allow: ["admin", "superadmin"],
-  },
-  {
-    icon: <SlEnvolopeLetter />,
-    label: "Newsletter",
-    path: "/admin/newsletter",
     allow: ["admin", "superadmin"],
   },
   {

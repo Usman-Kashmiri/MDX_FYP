@@ -123,7 +123,10 @@ const SideNav = ({ caseType, setSelectedCaseType }) => {
   }, [values.jurisdiction, caseType, dispatch]);
 
   return (
-    <Container fluid className="bg-white py-4 px-0 h-100 position-relative">
+    <Container
+      fluid
+      className="bg-white py-4 px-0 h-100 position-relative d-flex flex-column justify-content-between"
+    >
       <span className="aside-toggler d-xl-none position-absolute top-0 mt-3 ms-2">
         <DrawerHamBurger
           Icon={isAsideOpened ? CloseDrawerIcon : OpenDrawerIcon}
@@ -263,12 +266,14 @@ const SideNav = ({ caseType, setSelectedCaseType }) => {
             </div>
           </Col>
         </div>
-        {token && (
+      </div>
+      {token && (
+        <div className="px-3">
           <button className="primary-btn rounded-1" onClick={handleLogout}>
             Logout
           </button>
-        )}
-      </div>
+        </div>
+      )}
     </Container>
   );
 };

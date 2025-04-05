@@ -5,7 +5,6 @@ import Auth from "../pages/Auth";
 import LoginForm from "../components/LoginForm";
 import SignupForm from "../components/SignupForm";
 import FindLawyer from "../pages/FindLawyer";
-import ChatLayout from "../pages/ChatLayout";
 import VerifyAccount from "../components/VerifyAccount";
 import About from "../pages/About";
 import DefaultLayout from "../pages/DefaultLayout";
@@ -33,40 +32,20 @@ import ClientDashboard from "../pages/client/Dashboard";
 import ManageModerators from "../pages/admin/ManageModerators";
 import ManageLawyers from "../pages/admin/ManageLawyers";
 import ManageClients from "../pages/admin/ManageClients";
-import VideoMeeting from "../pages/VideoMeeting";
-import MeetingStartup from "../pages/MeetingStartup";
-import ContractCreation from "../pages/ContractCreation";
-import ContractList from "../pages/ContractList";
-import ContractDetails from "../pages/ContractDetails";
 import AppointmentList from "../pages/lawyer/AppointmentList";
-import PaymentPage from "../pages/PaymentPage";
-import PaymentSuccess from "../pages/PaymentSuccess";
 import Countries from "../pages/admin/Countries";
-import Transactions from "../pages/Transactions";
-import Wallet from "../pages/Wallet";
 import WebSetting from "../pages/admin/WebSetting";
-import WithdrawRequests from "../pages/admin/WithdrawRequests";
 import AdminFAQs from "../pages/admin/FAQs";
-import ContactUsForAdmin from "../pages/admin/ContactUsForAdmin";
-import NewsLetter from "../pages/admin/NewsLetter";
 import Notification from "../pages/admin/Notification";
-import MessageViewForAdmin from "../pages/admin/MessageViewForAdmin";
 import UserStatistics from "../pages/admin/UserStatistics";
-import CreateMilestone from "../pages/CreateMilestone";
-import ViewMilestone from "../pages/ViewMilestone";
-import ViewMilestoneSteps from "../pages/ViewMilestoneSteps";
 import CarouselPage from "../pages/admin/CarouselPage";
-import OnlineUsers from "../pages/testPages/onlineUsers";
 import PracticeAreas from "../pages/PracticeAreas";
 import PracticeArea from "../pages/PracticeArea";
 import AsideProvider from "../contexts/AsideContext";
-import CustomChat from "../pages/CustomChat";
 
 const Router = () => {
   return (
     <Routes>
-      <Route path="/online-users" element={<OnlineUsers />} />
-
       {/* // ? Default Layout routes */}
       <Route path="/" element={<DefaultLayout />}>
         <Route path="/" element={<Home />} />
@@ -80,9 +59,6 @@ const Router = () => {
         <Route path="/lawyer/:id" element={<LawyerProfile />} />
       </Route>
 
-      <Route path="/card/:id" element={<PaymentPage />} />
-      <Route path="/payment-success/:result" element={<PaymentSuccess />} />
-      <Route path="/payment-success" element={<PaymentSuccess />} />
       <Route
         path="/legal-professionals"
         element={
@@ -107,13 +83,6 @@ const Router = () => {
         />
         <Route path="/auth/reset-password" element={<ResetPassword />} />
       </Route>
-
-      <Route path="/meeting/:id" element={<MeetingStartup />} />
-
-      <Route
-        path={"/customchat"}
-        element={<CommonRoute Component={CustomChat} />}
-      />
 
       {/* // ? Admin's protected routes */}
       <Route path="/admin" element={<DashboardLayout />}>
@@ -159,36 +128,16 @@ const Router = () => {
           element={<AdminRoute Component={WebSetting} />}
         />
         <Route
-          path="/admin/withdraw-requests"
-          element={<AdminRoute Component={WithdrawRequests} />}
-        />
-        <Route
           path="/admin/faqs"
           element={<AdminRoute Component={AdminFAQs} />}
-        />
-        <Route
-          path="/admin/messages"
-          element={<AdminRoute Component={ContactUsForAdmin} />}
-        />
-        <Route
-          path="/admin/message/:id"
-          element={<AdminRoute Component={MessageViewForAdmin} />}
         />
         <Route
           path="/admin/user/statistics/:id"
           element={<AdminRoute Component={UserStatistics} />}
         />
         <Route
-          path="/admin/newsletter"
-          element={<AdminRoute Component={NewsLetter} />}
-        />
-        <Route
           path="/admin/settings/carousel"
           element={<AdminRoute Component={CarouselPage} />}
-        />
-        <Route
-          path={"/admin/contracts"}
-          element={<CommonRoute Component={ContractList} />}
         />
       </Route>
 
@@ -199,49 +148,12 @@ const Router = () => {
           element={<LawyerRoute Component={LawyerDashboard} />}
         />
         <Route
-          path="/lawyer/transactions"
-          element={<LawyerRoute Component={Transactions} />}
-        />
-        <Route
-          path="/lawyer/wallet"
-          element={<LawyerRoute Component={Wallet} />}
-        />
-        <Route
           path="/lawyer/account-settings"
           element={<CommonRoute Component={AccountSetting} />}
         />
         <Route
           path="/lawyer/appointments"
           element={<LawyerRoute Component={AppointmentList} />}
-        />
-        <Route
-          path="/lawyer/milestone/stage/:id"
-          element={<LawyerRoute Component={CreateMilestone} />}
-        />
-        <Route
-          path="/lawyer/milestone/step"
-          element={<LawyerRoute Component={CreateMilestone} />}
-        />
-        <Route
-          path="/lawyer/milestones"
-          element={<LawyerRoute Component={ViewMilestone} />}
-        />
-        <Route
-          path="/lawyer/milestone/:id"
-          element={<LawyerRoute Component={ViewMilestone} />}
-        />
-        <Route
-          path="/lawyer/milestone/stage/:id"
-          element={<LawyerRoute Component={ViewMilestoneSteps} />}
-        />
-        <Route
-          path={"/lawyer/contracts"}
-          element={<CommonRoute Component={ContractList} />}
-        />
-
-        <Route
-          path="/lawyer/contract/create"
-          element={<LawyerRoute Component={ContractCreation} />}
         />
         <Route
           path="/lawyer/notifications"
@@ -268,28 +180,8 @@ const Router = () => {
           element={<ClientRoute Component={ClientDashboard} />}
         />
         <Route
-          path="/client/payment/:id"
-          element={<ClientRoute Component={PaymentPage} />}
-        />
-        <Route
           path="/client/appointments/:id?"
           element={<ClientRoute Component={AppointmentList} />}
-        />
-        <Route
-          path="/client/view-milestone"
-          element={<ClientRoute Component={ViewMilestone} />}
-        />
-        <Route
-          path="/client/view-milestone/:id"
-          element={<ClientRoute Component={ViewMilestone} />}
-        />
-        <Route
-          path="/client/view-milestone-stage/:id"
-          element={<ClientRoute Component={ViewMilestoneSteps} />}
-        />
-        <Route
-          path={"/client/contracts"}
-          element={<CommonRoute Component={ContractList} />}
         />
         <Route
           path="/client/notifications"
@@ -298,35 +190,10 @@ const Router = () => {
       </Route>
 
       {/* // ? common protected routes */}
-      <Route path="/chat" element={<CommonRoute Component={ChatLayout} />} />
-      <Route
-        path="/chat/:id"
-        element={<CommonRoute Component={ChatLayout} />}
-      />
       <Route path="/dashboard" element={<DashboardLayout />}>
-        <Route
-          path="/dashboard/video-meeting/:id"
-          element={<CommonRoute Component={VideoMeeting} />}
-        />
-        <Route
-          path="/dashboard/video-meeting/:id"
-          element={<CommonRoute Component={VideoMeeting} />}
-        />
         <Route
           path="/dashboard/book-appointment"
           element={<CommonRoute Component={BookAppointment} />}
-        />
-        <Route
-          path="/dashboard/contract-details/:id"
-          element={<CommonRoute Component={ContractDetails} />}
-        />
-        <Route
-          path="/dashboard/message/:id"
-          element={<AdminRoute Component={MessageViewForAdmin} />}
-        />
-        <Route
-          path="/dashboard/contract-details-payment/:id"
-          element={<CommonRoute Component={ContractDetails} />}
         />
       </Route>
 

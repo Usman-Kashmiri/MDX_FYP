@@ -56,9 +56,12 @@ const LoginForm = () => {
 
             return true;
           }
-
           navigate(
-            `/${res?.user?.role.replace("Super", "").toLowerCase()}/dashboard`
+            res?.user?.role?.toLowerCase()?.includes("admin")
+              ? `/${res?.user?.role
+                  .replace("Super", "")
+                  .toLowerCase()}/dashboard`
+              : `/${res?.user?.role.toLowerCase()}/account-settings`
           );
 
           return true;

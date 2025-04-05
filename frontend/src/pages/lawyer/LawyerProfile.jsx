@@ -1,28 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Col, Container, Row, Spinner } from "react-bootstrap";
 import Ratings from "../../components/Ratings";
-import { useNavigate, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Fade from "react-reveal/Fade";
 import { getLawyerById } from "../../redux/actions/webActions";
-import { Avatar, Button, Flex, Rating, Text } from "@mantine/core";
-import { errorMessage } from "../../globalFunctions";
-import { isAbleToChat } from "../../redux/actions/clientActions";
-import { useAuth } from "../../hooks/auth";
-import DescribeCaseModal from "../../components/layout/DescribeCaseModal";
-import { useDisclosure } from "@mantine/hooks";
-import chatNowIcon from "../../assets/images/chat-now-icon.png";
+import { Avatar, Flex, Rating, Text } from "@mantine/core";
 
 const LawyerProfile = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const { id } = useParams();
-  const navigate = useNavigate();
-  const isAuthorized = useAuth();
-  const [isChatInitiated, setIsChatInitiated] = useState(false);
-  const [isChatLoading, setIsChatLoading] = useState(false);
-  const [isCaseModalOpened, { open: openCaseModal, close: closeCaseModal }] =
-    useDisclosure(false);
 
   useEffect(() => {
     if (location.pathname === "/lawyer-profile") {
@@ -36,7 +24,7 @@ const LawyerProfile = () => {
     } else {
       dispatch(getLawyerById(id));
     }
-  }, [dispatch, location.pathname]);
+  }, [dispatch, location.pathname, id, location.state]);
 
   const { user } = useSelector((state) => state.auth);
   const { LawyerById } = useSelector((state) => state.web);
@@ -92,14 +80,14 @@ const LawyerProfile = () => {
                               )}
                             </Col>
                             <Col xs={12} className="w-100 pe-0">
+                              <span className="fw-bold">Email: </span>
                               <a href={`mailto:${LawyerById?.email}`}>
-                                <span className="fw-bold">Email: </span>
                                 {LawyerById?.email}
                               </a>
                             </Col>
                             <Col xs="auto">
+                              <span className="fw-bold">Phone: </span>
                               <a href={`tel:${LawyerById?.phone_number}`}>
-                                <span className="fw-bold">Phone: </span>
                                 {LawyerById?.phone_number}
                               </a>
                             </Col>
@@ -249,13 +237,6 @@ const LawyerProfile = () => {
         )}
         {/* <Footer /> */}
       </Fade>
-
-      <DescribeCaseModal
-        opened={isCaseModalOpened}
-        close={closeCaseModal}
-        isChatInitiated={isChatInitiated}
-        lawyerId={LawyerById?.id}
-      />
     </>
   );
 };
