@@ -15,7 +15,7 @@ class carouselImagesResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $imagePath = $this->image ? asset('/' . $this->image) : null;
+        $imagePath = $this->image ? asset('carousel/' . $this->image) : null;
 
         return [
             "id" => $this->id,
